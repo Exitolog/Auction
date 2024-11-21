@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home / Auction Page</title>
+</head>
+<body>
+<h1 align="center" style="color:SteelBlue">Добро пожаловать на онлайн аукцион с 1 рубля</h1>
+
+<form align="right" th:method="GET" th:action="@{/auction/new}">
+    <input type="submit" value="Выставить новый лот">
+</form>
+<p></p>
+<style>
+    td {
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid black;
+    }
+    table {
+        border: 1px solid black;
+        margin: auto;
+        border-bottom: none;
+    }
+    th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<table>
+    <thead>
+    <tr>
+        <th>Статус публикации</th>
+        <th>Идентификатор лота</th>
+        <th>Категория</th>
+        <th>Состояние</th>
+        <th>Текущая ставка</th>
+        <th>Дата публикации</th>
+        <th>Дата окончания торгов</th>
+        <th>Описание лота</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="publication : ${publications}">
+        <td><span th:text="${publication.statusPublication}"></span></td>
+        <td><a th:href="@{/auction/{id}(id=${publication.id})}"><span th:text="${publication.id}"></span></a></td>
+        <td><span th:text="${publication.category}"></span></td>
+        <td><span th:text="${publication.condition}"></span></td>
+        <td><span th:text="${publication.startPrice}"></span></td>
+        <td><span th:text="${publication.datePublication}"></span></td>
+        <td><span th:text="${publication.dateOfFinishTrade}"></span></td>
+        <td><span th:text="${publication.descriptionPublication}"></span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

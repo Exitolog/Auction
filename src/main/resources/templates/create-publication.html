@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание нового лота</title>
+</head>
+<body>
+<h1 align="center" style="color:SteelBlue">Введите информацию по новому лоту</h1>
+<form action="#" th:action="@{/auction/new}" th:object="${publication}" method="POST">
+    <p>Категория:
+        <label>
+            <select th:field="*{category}">
+                <option value="ANOTHER">Другое</option>
+                <option value="LAPTOP">Ноутбук</option>
+                <option value="PHONE">Телефон</option>
+                <option value="TELEVISOR">Телевизор</option>
+            </select>
+        </label>
+    <p>Состояние:
+        <label>
+            <select th:field="*{condition}">
+                <option value="NEW">Новое</option>
+                <option value="USED">Б/У</option>
+                <option value="INCORRECT">Неисправно</option>
+            </select>
+        </label>
+    <p>Дата окончания торгов через: <input type="text" th:field="*{dateOfFinishTrade}"/></p>
+    <!--    <label>-->
+    <!--        <select th:field="*{dateOfFinishTrade}">-->
+    <!--            <option value="">3 дня</option>-->
+    <!--            <option value="USED">5 дней</option>-->
+    <!--            <option value="INCORRECT">7 дней</option>-->
+    <!--        </select>-->
+    <!--    </label>-->
+    <p>Описание лота: <input type="text" th:field="*{descriptionPublication}"/></p>
+    <p><input type="submit" value="Выставить лот"/> <input type="reset" value="Ввести данные заново"/></p>
+</form>
+</body>
+</html>

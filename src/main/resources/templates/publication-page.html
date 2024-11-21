@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home / Publication Page</title>
+</head>
+<body>
+<h1 align="center" style="color:SteelBlue">Добро пожаловать на лот № <span th:text="${publication.id}"></span></h1>
+
+Статус публикации: <span th:text="${publication.statusPublication}"></span> <br>
+Категория: <span th:text="${publication.category}"></span> <br>
+Состояние: <span th:text="${publication.condition}"></span> <br>
+Стартовая цена: <span th:text="${publication.startPrice}"></span> <br>
+Текущая ставка: <span th:text="${publication.startPrice}"></span> <br>
+Дата публикации: <span th:text="${publication.datePublication}"></span> <br>
+Дата окончания торгов: <span th:text="${publication.dateOfFinishTrade}"></span> <br>
+Описание лота: <span th:text="${publication.descriptionPublication}"></span> <br>
+<p><input type="submit" value="Удалить лот"/> <input type="submit" value="Внести изменения"/></p>
+
+<br/>
+<hr/>
+
+<!--<form align="right" th:method="GET" th:action="@{/home/auction/new}">-->
+<!--    <input type="submit" value="Выставить новый лот" >-->
+<!--</form>-->
+</body>
+</html>

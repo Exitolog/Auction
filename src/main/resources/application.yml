@@ -1,0 +1,12 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: auction
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sb
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
