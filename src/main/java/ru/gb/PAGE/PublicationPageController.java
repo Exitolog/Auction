@@ -69,4 +69,6 @@ public class PublicationPageController {
         return "redirect:/auction";
     }
 
+
+
 }
