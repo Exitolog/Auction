@@ -49,12 +49,27 @@ public class Publication {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @Schema(description = "ID user с лидирующей ставкой")
+    private Long clientIdentity;
+
     @Schema(description = "Логин user кому принадлежит лот")
     @ManyToOne
     @JoinColumn(name = "holder_id")
     private Client holder;
 
+    @Schema(description = "ID user кому принадлежит лот")
+    private Long holderIdentity;
+
     @Schema(description = "Описание к публикации")
     private String descriptionPublication;
 
+    public Publication() {
+    }
+
+    public Publication(Client client, Client holder) {
+        this.client = client;
+        this.holder = holder;
+        this.clientIdentity = client.getId();
+        this.holderIdentity = holder.getId();
+    }
 }

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -50,11 +51,9 @@
         <td><a th:href="@{/auction/{id}(id=${publication.id})}"><span th:text="${publication.id}"></span></a></td>
         <td><span th:text="${publication.category}"></span></td>
         <td><span th:text="${publication.condition}"></span></td>
-<!--        th:href="@{/auction/user/{id}(id=${publication.client.id})}"-->
-        <td><span th:href="@{/auction/user/{id}(id=${publication.client})}" th:text="${publication.client}"></span></td>
+        <td><a th:href="@{/auction/user/{id}(id=${publication.clientIdentity})}"><span th:text="${publication.client}"></span></a></td>
         <td><span th:text="${publication.priceNow}"></span></td>
-<!--        th:href="@{/auction/user/{id}(id=${publication.holder.id})}"-->
-        <td><span th:text="${publication.holder}"></span></td>
+        <td><a th:href="@{/auction/user/{id}(id=${publication.holderIdentity})}"><span th:text="${publication.holder}"></span></a></td>
         <td><span th:text="${publication.dateOfFinishTrade}"></span></td>
         <td><span th:text="${publication.descriptionPublication}"></span></td>
     </tr>

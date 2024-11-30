@@ -27,8 +27,8 @@ public class PublicationService {
 //        return Optional.of(publicationRepository.findAllByClientId(id));
 //    }
 
-    public Optional<Client> findClientById(Client client){
-        return clientRepository.findById(client.getId());
+    public Optional<Client> findClientById(Long id){
+        return clientRepository.findById(id);
     }
 
 

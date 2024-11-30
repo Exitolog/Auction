@@ -36,9 +36,9 @@ public class PublicationController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<Client> getAllPublicationByClient(@PathVariable("id") Client client){
-        if(publicationService.findClientById(client).isPresent()) {
-            Client clientGet = publicationService.findClientById(client).get();
+    public ResponseEntity<Client> getAllPublicationByClient(@PathVariable("id") Long id){
+        if(publicationService.findClientById(id).isPresent()) {
+            Client clientGet = publicationService.findClientById(id).get();
             return ResponseEntity.ok(clientGet);
         }
         return ResponseEntity.noContent().build();

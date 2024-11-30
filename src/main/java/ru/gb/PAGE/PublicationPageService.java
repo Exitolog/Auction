@@ -26,8 +26,8 @@ public class PublicationPageService {
         } else return Optional.empty();
     }
 
-    public Optional<Client> findClientById(Client client){
-        return publicationService.findClientById(client);
+    public Optional<Client> findClientById(Long id){
+        return publicationService.findClientById(id);
     }
 
     public Optional<PublicationPage> findById(Long id) {
@@ -74,6 +74,8 @@ public class PublicationPageService {
         publicationPage.setHolder(publication.getHolder().getLogin());
         publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
+        publicationPage.setClientIdentity(publication.getClient().getId());
+        publicationPage.setHolderIdentity(publication.getHolder().getId());
         return publicationPage;
     }
 

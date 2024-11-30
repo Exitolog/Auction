@@ -45,9 +45,9 @@ public class PublicationPageController {
     }
 
     @GetMapping("/user/{id}")
-    public String getAllPublicationByClient(Model model, @PathVariable("id") Client client){
-        if(publicationPageService.findClientById(client).isPresent()) {
-            Client clientGet = publicationPageService.findClientById(client).get();
+    public String getAllPublicationByClient(Model model, @PathVariable("id") Long id){
+        if(publicationPageService.findClientById(id).isPresent()) {
+            Client clientGet = publicationPageService.findClientById(id).get();
             model.addAttribute("client", clientGet);
             return "client-page";
         }
