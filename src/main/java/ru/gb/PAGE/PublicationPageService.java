@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.gb.REST.Publication;
 import ru.gb.REST.PublicationRepository;
 import ru.gb.REST.PublicationService;
+import ru.gb.userLogic.Client;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +24,10 @@ public class PublicationPageService {
             List<Publication> publications = publicationService.findAll().get();
             return Optional.of(publications.stream().map(this::convertToPage).toList());
         } else return Optional.empty();
+    }
+
+    public Optional<Client> findClientById(Client client){
+        return publicationService.findClientById(client);
     }
 
     public Optional<PublicationPage> findById(Long id) {
@@ -60,11 +65,14 @@ public class PublicationPageService {
         PublicationPage publicationPage = new PublicationPage();
         publicationPage.setCategory(publication.getCategory().name());
         publicationPage.setId(String.valueOf(publication.getId()));
-        publicationPage.setDatePublication(String.valueOf(publication.getDatePublication()));
+        publicationPage.setDatePublication(publication.getDatePublication());
         publicationPage.setStatusPublication(publication.getStatusPublication().getStatusName());
         publicationPage.setCondition(String.valueOf(publication.getCondition()));
         publicationPage.setStartPrice(String.valueOf(publication.getStartPrice()));
-        publicationPage.setDateOfFinishTrade(String.valueOf(publication.getDateOfFinishTrade()));
+        publicationPage.setPriceNow(String.valueOf(publication.getPriceNow()));
+        publicationPage.setClient(publication.getClient().getLogin());
+        publicationPage.setHolder(publication.getHolder().getLogin());
+        publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
         return publicationPage;
     }

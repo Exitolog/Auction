@@ -3,6 +3,8 @@ package ru.gb.PAGE;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 public class PublicationPage {
@@ -13,9 +15,12 @@ public class PublicationPage {
     private String category;
     private String condition;
     private String startPrice;
-    private String datePublication;
-    private String dateOfFinishTrade;
+    private String priceNow;
+    private LocalDate datePublication;
+    private LocalDate dateOfFinishTrade;
     private String descriptionPublication;
+    private String client;
+    private String holder;
 
 
 }

@@ -1,9 +1,11 @@
 package ru.gb.REST;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.userLogic.Client;
 
 
 import java.util.List;
@@ -29,6 +31,15 @@ public class PublicationController {
         if(publicationService.findAll().isPresent()) {
             List<Publication> publications = publicationService.findAll().get();
             return ResponseEntity.ok(publications);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Client> getAllPublicationByClient(@PathVariable("id") Client client){
+        if(publicationService.findClientById(client).isPresent()) {
+            Client clientGet = publicationService.findClientById(client).get();
+            return ResponseEntity.ok(clientGet);
         }
         return ResponseEntity.noContent().build();
     }

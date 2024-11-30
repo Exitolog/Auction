@@ -13,8 +13,10 @@
 Статус публикации: <span th:text="${publication.statusPublication}"></span> <br>
 Категория: <span th:text="${publication.category}"></span> <br>
 Состояние: <span th:text="${publication.condition}"></span> <br>
+Текущая ставка сделана: <span th:text="${publication.client}"></span> <br>
 Стартовая цена: <span th:text="${publication.startPrice}"></span> <br>
-Текущая ставка: <span th:text="${publication.startPrice}"></span> <br>
+Текущая ставка: <span th:text="${publication.priceNow}"></span> <br>
+Лот выставлен: <span th:text="${publication.holder}"></span> <br>
 Дата публикации: <span th:text="${publication.datePublication}"></span> <br>
 Дата окончания торгов: <span th:text="${publication.dateOfFinishTrade}"></span> <br>
 Описание лота: <span th:text="${publication.descriptionPublication}"></span> <br>

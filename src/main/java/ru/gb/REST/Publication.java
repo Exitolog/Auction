@@ -7,10 +7,10 @@ import lombok.Setter;
 import ru.gb.model.Category;
 import ru.gb.model.Condition;
 import ru.gb.model.StatusPublication;
+import ru.gb.userLogic.Client;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -35,15 +35,26 @@ public class Publication {
     @Schema(description = "Стартовая цена торгов")
     private Long startPrice = 1L;
 
+    @Schema(description = "Текущая цена торгов")
+    private Long priceNow;
+
     @Schema(description = "Дата публикации")
     private LocalDate datePublication = LocalDate.now();
 
     @Schema(description = "Дата окончания торгов")
     private LocalDate dateOfFinishTrade;
 
-    @Schema(description = "Описание к публикации")
-//    ,maxLength = 256)
-    private String descriptionPublication;
+    @Schema(description = "Логин user с лидирующей ставкой")
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
+    @Schema(description = "Логин user кому принадлежит лот")
+    @ManyToOne
+    @JoinColumn(name = "holder_id")
+    private Client holder;
+
+    @Schema(description = "Описание к публикации")
+    private String descriptionPublication;
 
 }
