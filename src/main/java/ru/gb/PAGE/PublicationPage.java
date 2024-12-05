@@ -20,8 +20,8 @@ public class PublicationPage {
     private LocalDate dateOfFinishTrade;
     private String descriptionPublication;
     private String client;
-    private Long clientIdentity;
     private String holder;
+    private Long clientIdentity;
     private Long holderIdentity;
 
 

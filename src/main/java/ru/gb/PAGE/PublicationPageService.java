@@ -6,6 +6,7 @@ import ru.gb.REST.Publication;
 import ru.gb.REST.PublicationRepository;
 import ru.gb.REST.PublicationService;
 import ru.gb.userLogic.Client;
+import ru.gb.userLogic.ClientRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class PublicationPageService {
 
     private final PublicationService publicationService;
     private final PublicationRepository publicationRepository;
-
+    private final ClientRepository clientRepository;
     public Optional<List<PublicationPage>> findAll() {
         if (publicationService.findAll().isPresent()) {
             List<Publication> publications = publicationService.findAll().get();
@@ -43,6 +44,20 @@ public class PublicationPageService {
         }
         if (Objects.isNull(publication.getCondition())) {
             throw new IllegalArgumentException("Condition must not be null");
+        }
+        if(Objects.isNull(publication.getClient())) {
+            Client client = new Client();
+            client.setLogin("admin");
+            client.setPassword("admin_password");
+            clientRepository.save(client);
+            publication.setClient(client);
+        }
+        if(Objects.isNull(publication.getHolder())) {
+            Client holder = new Client();
+            holder.setLogin("holder");
+            holder.setPassword("holder_password");
+            clientRepository.save(holder);
+            publication.setHolder(holder);
         }
         publicationRepository.save(publication);
         return convertToPage(publication);
