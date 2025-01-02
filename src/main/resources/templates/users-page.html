@@ -1,0 +1,49 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home / Users Page</title>
+</head>
+<body>
+<h1 align="center" style="color:SteelBlue">Список всех зарегистрированных пользователей</h1>
+<p></p>
+<style>
+    td {
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid black;
+    }
+    table {
+        border: 1px solid black;
+        margin: auto;
+        border-bottom: none;
+    }
+    th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<table>
+    <thead>
+    <tr>
+        <th>Идентификатор пользователя</th>
+        <th>Login пользователя</th>
+        <th>Password пользователя</th>
+        <th>Phone пользователя</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.id}"></span></td>
+        <td><span th:text="${user.login}"></span></td>
+        <td><span th:text="${user.password}"></span></td>
+        <td><span th:text="${user.phoneNumber}"></span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

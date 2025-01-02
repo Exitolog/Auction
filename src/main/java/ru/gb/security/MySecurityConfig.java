@@ -28,7 +28,9 @@ public class MySecurityConfig {
                .formLogin(Customizer.withDefaults())
                .authorizeHttpRequests(requests -> requests
                        .requestMatchers("/auction").permitAll()
+                       .requestMatchers("/users/**").permitAll()
                        .anyRequest().hasAuthority("USER")
+//                               .anyRequest().permitAll()
                )
                 //.formLogin(it -> it.loginPage("/login").permitAll())
                 .build();
