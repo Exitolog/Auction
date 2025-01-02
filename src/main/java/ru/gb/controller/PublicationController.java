@@ -1,11 +1,12 @@
-package ru.gb.REST;
+package ru.gb.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.userLogic.Client;
+import ru.gb.service.PublicationService;
+import ru.gb.entity.Publication;
+import ru.gb.entity.User;
 
 
 import java.util.List;
@@ -36,12 +37,10 @@ public class PublicationController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<Client> getAllPublicationByClient(@PathVariable("id") Long id){
-        if(publicationService.findClientById(id).isPresent()) {
-            Client clientGet = publicationService.findClientById(id).get();
-            return ResponseEntity.ok(clientGet);
-        }
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<User> getAllPublicationByClient(@PathVariable("id") Long id){
+            User userGet = publicationService.findUserById(id);
+            return ResponseEntity.ok(userGet);
+        //return ResponseEntity.noContent().build();
     }
 
     @PostMapping

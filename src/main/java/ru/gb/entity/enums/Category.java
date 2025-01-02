@@ -1,6 +1,10 @@
-package ru.gb.model;
+package ru.gb.entity.enums;
 
 import lombok.Getter;
+import ru.gb.entity.Another;
+import ru.gb.entity.Laptop;
+import ru.gb.entity.Phone;
+import ru.gb.entity.Televisor;
 
 @Getter
 public enum Category {

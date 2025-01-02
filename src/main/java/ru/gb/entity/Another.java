@@ -1,4 +1,4 @@
-package ru.gb.model;
+package ru.gb.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.GeneratedValue;

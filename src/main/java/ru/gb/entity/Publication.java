@@ -1,13 +1,12 @@
-package ru.gb.REST;
+package ru.gb.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import ru.gb.model.Category;
-import ru.gb.model.Condition;
-import ru.gb.model.StatusPublication;
-import ru.gb.userLogic.Client;
+import ru.gb.entity.enums.Category;
+import ru.gb.entity.enums.Condition;
+import ru.gb.entity.enums.StatusPublication;
 
 
 import java.time.LocalDate;
@@ -46,19 +45,13 @@ public class Publication {
 
     @Schema(description = "Логин user с лидирующей ставкой")
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    @Schema(description = "ID user с лидирующей ставкой")
-    private Long clientIdentity;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Schema(description = "Логин user кому принадлежит лот")
     @ManyToOne
     @JoinColumn(name = "holder_id")
-    private Client holder;
-
-    @Schema(description = "ID user кому принадлежит лот")
-    private Long holderIdentity;
+    private User holder;
 
     @Schema(description = "Описание к публикации")
     private String descriptionPublication;
@@ -66,10 +59,8 @@ public class Publication {
     public Publication() {
     }
 
-    public Publication(Client client, Client holder) {
-        this.client = client;
+    public Publication(User user, User holder) {
+        this.user = user;
         this.holder = holder;
-        this.clientIdentity = client.getId();
-        this.holderIdentity = holder.getId();
     }
 }

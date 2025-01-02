@@ -1,13 +1,16 @@
-package ru.gb.PAGE;
+package ru.gb.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.h2.engine.Mode;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.REST.Publication;
-import ru.gb.userLogic.Client;
+import ru.gb.repository.UserRepository;
+import ru.gb.service.PublicationPageService;
+import ru.gb.entity.Publication;
+import ru.gb.model.PublicationPage;
+import ru.gb.entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class PublicationPageController {
 
     private final PublicationPageService publicationPageService;
+    private final UserRepository userRepository;
 
     @GetMapping
     public String getAllPublicationPage(Model model) {
@@ -44,14 +48,12 @@ public class PublicationPageController {
         return "create-publication";
     }
 
-    @GetMapping("/user/{id}")
-    public String getAllPublicationByClient(Model model, @PathVariable("id") Long id){
-        if(publicationPageService.findClientById(id).isPresent()) {
-            Client clientGet = publicationPageService.findClientById(id).get();
-            model.addAttribute("client", clientGet);
+    @GetMapping("/user/{login}")
+    public String getAllPublicationByClient(Model model, @PathVariable("login") String login){
+            User userGet = publicationPageService.findUserByLogin(login);
+            model.addAttribute("client", userGet);
             return "client-page";
-        }
-        return "not-found";
+        //return "not-found";
     }
 
     @GetMapping("/{id}/edit")
@@ -76,11 +78,10 @@ public class PublicationPageController {
     }
 
     @PostMapping("/new")
-    public String createPublication(@ModelAttribute("publication") Publication publication) {
+    public String createPublication(@AuthenticationPrincipal UserDetails currentUser, @ModelAttribute("publication") Publication publication) {
+        User userHolder = userRepository.findByLogin(currentUser.getUsername()).get();
+        publication.setHolder(userHolder);
         publicationPageService.create(publication);
         return "redirect:/auction";
     }
-
-
-
 }

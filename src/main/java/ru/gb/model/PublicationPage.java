@@ -1,4 +1,4 @@
-package ru.gb.PAGE;
+package ru.gb.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +19,6 @@ public class PublicationPage {
     private LocalDate datePublication;
     private LocalDate dateOfFinishTrade;
     private String descriptionPublication;
-    private String client;
+    private String user;
     private String holder;
-    private Long clientIdentity;
-    private Long holderIdentity;
-
-
 }

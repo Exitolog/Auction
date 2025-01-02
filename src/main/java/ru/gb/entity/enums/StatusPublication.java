@@ -1,4 +1,4 @@
-package ru.gb.model;
+package ru.gb.entity.enums;
 
 import lombok.Getter;
 
