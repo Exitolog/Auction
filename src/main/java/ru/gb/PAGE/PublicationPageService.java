@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.gb.REST.Publication;
 import ru.gb.REST.PublicationRepository;
 import ru.gb.REST.PublicationService;
-import ru.gb.userLogic.Client;
-import ru.gb.userLogic.ClientRepository;
+import ru.gb.userLogic.User;
+import ru.gb.userLogic.UserRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,12 +14,15 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+// вынести в пакет серисов
 public class PublicationPageService {
 
 
     private final PublicationService publicationService;
     private final PublicationRepository publicationRepository;
-    private final ClientRepository clientRepository;
+    private final UserRepository userRepository;
+
+    // убрать оптионал
     public Optional<List<PublicationPage>> findAll() {
         if (publicationService.findAll().isPresent()) {
             List<Publication> publications = publicationService.findAll().get();
@@ -27,10 +30,15 @@ public class PublicationPageService {
         } else return Optional.empty();
     }
 
-    public Optional<Client> findClientById(Long id){
-        return publicationService.findClientById(id);
+    public User findUserByLogin(String login){
+        return publicationService.findUserByLogin(login);
     }
 
+    public User findUserById(Long id) {
+        return publicationService.findUserById(id);
+    }
+
+    // убрать оптионал везде
     public Optional<PublicationPage> findById(Long id) {
         Optional<Publication> publicationOptional = publicationService.findById(id);
         if (publicationOptional.isPresent()) {
@@ -38,6 +46,8 @@ public class PublicationPageService {
         } else return Optional.empty();
     }
 
+
+    // сделать воид
     public PublicationPage create(Publication publication) {
         if (Objects.isNull(publication.getCategory())) {
             throw new IllegalArgumentException("Category must not be null");
@@ -45,18 +55,18 @@ public class PublicationPageService {
         if (Objects.isNull(publication.getCondition())) {
             throw new IllegalArgumentException("Condition must not be null");
         }
-        if(Objects.isNull(publication.getClient())) {
-            Client client = new Client();
-            client.setLogin("admin");
-            client.setPassword("admin_password");
-            clientRepository.save(client);
-            publication.setClient(client);
+        if (Objects.isNull(publication.getUser())) {
+            User user = new User();
+            user.setLogin("admin");
+            user.setPassword("admin_password");
+            userRepository.save(user);
+            publication.setUser(user);
         }
-        if(Objects.isNull(publication.getHolder())) {
-            Client holder = new Client();
+        if (Objects.isNull(publication.getHolder())) {
+            User holder = new User();
             holder.setLogin("holder");
             holder.setPassword("holder_password");
-            clientRepository.save(holder);
+            userRepository.save(holder);
             publication.setHolder(holder);
         }
         publicationRepository.save(publication);
@@ -69,13 +79,17 @@ public class PublicationPageService {
         publicationToBeUpdated.setDateOfFinishTrade(publication.getDateOfFinishTrade());
         publicationToBeUpdated.setCondition(publication.getCondition());
         publicationToBeUpdated.setDescriptionPublication(publication.getDescriptionPublication());
+        publicationRepository.save(publicationToBeUpdated);
+        // сохранять в бд
     }
 
+    // сделать свое исключение, ловить его хендлером , возврпащть на страницу нрмальную ошибку
     public void delete(Long id) {
         if (publicationRepository.findById(id).isPresent()) publicationRepository.deleteById(id);
         else throw new RuntimeException("Лота с идентификатором " + id + " не существует");
     }
 
+    // почитать про маппер
     private PublicationPage convertToPage(Publication publication) {
         PublicationPage publicationPage = new PublicationPage();
         publicationPage.setCategory(publication.getCategory().name());
@@ -85,12 +99,10 @@ public class PublicationPageService {
         publicationPage.setCondition(String.valueOf(publication.getCondition()));
         publicationPage.setStartPrice(String.valueOf(publication.getStartPrice()));
         publicationPage.setPriceNow(String.valueOf(publication.getPriceNow()));
-        publicationPage.setClient(publication.getClient().getLogin());
+        publicationPage.setUser(publication.getUser().getLogin());
         publicationPage.setHolder(publication.getHolder().getLogin());
         publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
-        publicationPage.setClientIdentity(publication.getClient().getId());
-        publicationPage.setHolderIdentity(publication.getHolder().getId());
         return publicationPage;
     }
 
