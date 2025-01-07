@@ -38,7 +38,6 @@
         <th>Идентификатор лота</th>
         <th>Категория</th>
         <th>Состояние</th>
-        <th>Текущая ставка сделана</th>
         <th>Текущая ставка</th>
         <th>Лот выставлен</th>
         <th>Дата окончания торгов</th>
@@ -51,7 +50,6 @@
         <td><a th:href="@{/auction/{id}(id=${publication.id})}"><span th:text="${publication.id}"></span></a></td>
         <td><span th:text="${publication.category}"></span></td>
         <td><span th:text="${publication.condition}"></span></td>
-        <td><a th:href="@{/auction/user/{login}(login=${publication.user})}"><span th:text="${publication.user}"></span></a></td>
         <td><span th:text="${publication.priceNow}"></span></td>
         <td><a th:href="@{/auction/user/{login}(login=${publication.holder})}"><span th:text="${publication.holder}"></span></a></td>
         <td><span th:text="${publication.dateOfFinishTrade}"></span></td>

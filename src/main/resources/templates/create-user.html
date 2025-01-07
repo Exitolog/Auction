@@ -8,8 +8,8 @@
 <h1 align="center" style="color:SteelBlue">Введите информацию по новому пользователю</h1>
 <form action="#" th:action="@{/users/new}" th:object="${user}" method="POST">
     <p>Логин: <input type="text" th:field="*{login}"></p>
-    <p>Пароль: <input type="text" th:field="*{password}"/></p>
-    <p>Повторите пароль: <input type="text" th:field="*{confirmPassword}"/></p>
+    <p>Пароль: <input type="password" th:field="*{password}"/></p>
+    <p>Повторите пароль: <input type="password" th:field="*{confirmPassword}"/></p>
     <p>Номер телефона: <input type="text" th:field="*{phoneNumber}"/></p>
     <p><input type="submit" value="Создать пользователя"/> <input type="reset" value="Ввести данные заново"/></p>
 </form>

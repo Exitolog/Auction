@@ -2,6 +2,7 @@ package ru.gb.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,18 +22,22 @@ public class User {
     private Long id;
 
     @Size(min = 6, max = 16, message = "Логин должен быть от 6 до 16 символов")
-    @Column(name = "login")
+    @NotEmpty(message = "Логин не может быть пустым и должен быть минимум 6 символов")
+    @Column(name = "login", unique = true)
     private String login;
 
     @Size(min = 8, max = 16, message = "Пароль должен быть от 8 до 16 символов")
+    @NotEmpty(message = "Пароль не может быть пустым и должен быть минимум 8 символов")
     @Column(name = "password")
     private String password;
 
     @Transient
+    @NotEmpty(message = "Пароль не может быть пустым и должен совпадать с паролем выше")
     private String confirmPassword;
 
     @Column(name = "phone")
-    @Size(message = "Пароль должен быть в формате +7**********")
+    @NotEmpty(message = "Телефон не может быть пустым")
+    @Size(message = "Телефон должен быть в формате +7**********")
     private String phoneNumber;
 
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)

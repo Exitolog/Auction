@@ -48,18 +48,13 @@ public class PublicationPageService {
 
     // сделать воид
     public void create(Publication publication) {
-        if (Objects.isNull(publication.getCategory())) {
-            throw new IllegalArgumentException("Category must not be null");
-        }
-        if (Objects.isNull(publication.getCondition())) {
-            throw new IllegalArgumentException("Condition must not be null");
-        }
         if (Objects.isNull(publication.getUser())) {
             User user = new User();
             user.setLogin("Нет ставок");
             userRepository.save(user);
             publication.setUser(user);
         }
+        publication.setPriceNow(1L);
         publicationRepository.save(publication);
         convertToPage(publication);
     }

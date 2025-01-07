@@ -3,7 +3,9 @@ package ru.gb.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -25,13 +27,18 @@ public class MySecurityConfig {
        return   http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-               .formLogin(Customizer.withDefaults())
+//               .formLogin(formLogin -> formLogin
+//                       .loginPage("login.html")
+//                       .permitAll())
+//               .formLogin(Customizer.withDefaults())
                .authorizeHttpRequests(requests -> requests
                        .requestMatchers("/auction").permitAll()
                        .requestMatchers("/users/**").permitAll()
                        .anyRequest().hasAuthority("USER")
 //                               .anyRequest().permitAll()
                )
+               .formLogin(form -> form.loginPage("/login")
+                       .permitAll())
                 //.formLogin(it -> it.loginPage("/login").permitAll())
                 .build();
     }
@@ -40,7 +47,6 @@ public class MySecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        http
