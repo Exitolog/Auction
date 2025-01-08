@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 

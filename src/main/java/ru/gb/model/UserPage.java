@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserPage {
 
-//    private String id;
     private String login;
     private String password;
     private String confirmPassword;

@@ -2,7 +2,6 @@ package ru.gb.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Getter

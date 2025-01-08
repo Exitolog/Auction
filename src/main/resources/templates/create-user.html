@@ -34,9 +34,6 @@
         <p th:if="${#fields.hasErrors('confirmPassword')}"
            th:class="${#fields.hasErrors('confirmPassword')}? error"></p>
     </div>
-
-<!--    <p>Номер телефона: <input type="text" th:field="*{phoneNumber}"/></p>-->
-
     <div>
         <label for="phoneNumber">Номер телефона</label> <input type="text" th:field="*{phoneNumber}"
                                                                id="phoneNumber" placeholder="+7, либо 8"/>

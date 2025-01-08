@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import ru.gb.entity.User;
 import ru.gb.repository.UserRepository;
-
 import java.util.List;
 
 
