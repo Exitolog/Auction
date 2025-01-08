@@ -21,12 +21,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 6, max = 16, message = "Логин должен быть от 6 до 16 символов")
+    @Size(min = 6, max = 16)
     @NotEmpty(message = "Логин не может быть пустым и должен быть минимум 6 символов")
-    @Column(name = "login", unique = true)
+    @Column(name = "login")
     private String login;
 
-    @Size(min = 8, max = 16, message = "Пароль должен быть от 8 до 16 символов")
+    @Size(min = 8, max = 75)
     @NotEmpty(message = "Пароль не может быть пустым и должен быть минимум 8 символов")
     @Column(name = "password")
     private String password;
@@ -35,9 +35,8 @@ public class User {
     @NotEmpty(message = "Пароль не может быть пустым и должен совпадать с паролем выше")
     private String confirmPassword;
 
-    @Column(name = "phone")
+    @Column(name = "phoneNumber")
     @NotEmpty(message = "Телефон не может быть пустым")
-    @Size(message = "Телефон должен быть в формате +7**********")
     private String phoneNumber;
 
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)

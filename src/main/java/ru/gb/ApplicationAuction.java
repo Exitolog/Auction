@@ -48,6 +48,7 @@ public class ApplicationAuction {
         User vanya = new User();
         vanya.setLogin("vanya_msk777");
         vanya.setPassword("$2a$12$TutxZPO5fH9I45Bo8wBNG.tlH2Uw7w4TslEaIN89PUyjIpLcHez3i");
+        vanya.setConfirmPassword("$2a$12$TutxZPO5fH9I45Bo8wBNG.tlH2Uw7w4TslEaIN89PUyjIpLcHez3i");
 //        vanya.setPassword("vanya_password");
         vanya.setRoles(List.of(adminRole, userRole));
         vanya.addPublication(myFirstPhonePublication);
@@ -58,6 +59,7 @@ public class ApplicationAuction {
         User tanya = new User();
         tanya.setLogin("tanya1998");
         tanya.setPassword("$2a$12$DpI.HhhhQp/OK4F2.bz91eoqENg3wJwwEsKYFahI3.FiLCaNy0S8y");
+        tanya.setConfirmPassword("$2a$12$DpI.HhhhQp/OK4F2.bz91eoqENg3wJwwEsKYFahI3.FiLCaNy0S8y");
 //        tanya.setPassword("tanya_password");
         tanya.setRoles(List.of(userRole));
         tanya.addPublication(myFirstPhonePublication);
@@ -69,6 +71,7 @@ public class ApplicationAuction {
         pasha.setLogin("pashaa222");
 //        pasha.setPassword("pasha_password");
         pasha.setPassword("$2a$12$mIRZujcPyOFf39QE8zi9Ce6LjntRy6QO00gYUaHF6r2qFoJhQZnMS");
+        pasha.setConfirmPassword("$2a$12$mIRZujcPyOFf39QE8zi9Ce6LjntRy6QO00gYUaHF6r2qFoJhQZnMS");
         pasha.setRoles(List.of(userRole));
         pasha.addPublication(myFirstLaptopPublication);
         pasha.addPublication(mySecondLaptopPublication);

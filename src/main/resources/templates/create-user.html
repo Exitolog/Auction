@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Создание нового пользователя</title>
 </head>
 <body>
 <h1 align="center" style="color:SteelBlue">Введите информацию по новому пользователю</h1>
 <form action="#" th:action="@{/users/new}" th:object="${user}" method="POST">
-    <p>Логин: <input type="text" th:field="*{login}"></p>
-    <p>Пароль: <input type="password" th:field="*{password}"/></p>
-    <p>Повторите пароль: <input type="password" th:field="*{confirmPassword}"/></p>
-    <p>Номер телефона: <input type="text" th:field="*{phoneNumber}"/></p>
+    <div>
+        <label for="login">Логин</label> <input type="text" th:field="*{login}"
+                                                               id="login" placeholder="от 6 до 16 символов"/>
+        <p th:if="${#fields.hasErrors('login')}"
+           th:class="${#fields.hasErrors('login')}? error">Логин должен быть длиной больше 6 символов</p>
+
+    </div>
+    <div>
+        <label for="password">Пароль</label> <input type="password" th:field="*{password}"
+                                            id="password" placeholder="минимум 8 символов">
+        <p th:if="${#fields.hasErrors('password')}"
+           th:class="${#fields.hasErrors('password')}? error">Проверьте корректность ввода</p>
+    </div>
+
+<!--    <p>Повторите пароль: <input type="password" th:field="*{confirmPassword}"/></p>-->
+
+    <div>
+        <label for="confirmPassword">Повторите пароль</label> <input type="password" th:field="*{confirmPassword}"
+                                                      id="confirmPassword" placeholder="повторите пароль">
+        <p th:if="${#fields.hasErrors('confirmPassword')}"
+           th:class="${#fields.hasErrors('confirmPassword')}? error"></p>
+    </div>
+
+<!--    <p>Номер телефона: <input type="text" th:field="*{phoneNumber}"/></p>-->
+
+    <div>
+        <label for="phoneNumber">Номер телефона</label> <input type="text" th:field="*{phoneNumber}"
+                                                               id="phoneNumber" placeholder="+7, либо 8"/>
+        <p th:if="${#fields.hasErrors('phoneNumber')}"
+           th:errorclass="error" th:errors="*{phoneNumber}"></p>
+    </div>
+    <div th:if="${#fields.hasErrors('global')}">
+        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"></p>
+    </div>
     <p><input type="submit" value="Создать пользователя"/> <input type="reset" value="Ввести данные заново"/></p>
 </form>
 </body>
