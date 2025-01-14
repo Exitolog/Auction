@@ -6,6 +6,9 @@
 </head>
 <body>
 <h1 align="center" style="color:SteelBlue">Введите информацию по новому лоту</h1>
+<form align="right" th:method="GET" th:action="@{/auction}">
+    <input type="submit" value="На главную страницу">
+</form>
 <form action="#" th:action="@{/auction/new}" th:object="${publication}" method="POST">
     <p>Категория:
         <label>

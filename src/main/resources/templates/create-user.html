@@ -11,6 +11,9 @@
 </head>
 <body>
 <h1 align="center" style="color:SteelBlue">Введите информацию по новому пользователю</h1>
+<form align="right" th:method="GET" th:action="@{/auction}">
+    <input type="submit" value="На главную страницу">
+</form>
 <form action="#" th:action="@{/users/new}" th:object="${user}" method="POST">
     <div>
         <label for="login">Логин</label> <input type="text" th:field="*{login}"

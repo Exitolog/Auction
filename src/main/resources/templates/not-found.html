@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,5 +9,8 @@
 </head>
 <body>
 <h1>Страница не найдена</h1>
+<form align="right" th:method="GET" th:action="@{/auction}">
+    <input type="submit" value="На главную страницу">
+</form>
 </body>
 </html>

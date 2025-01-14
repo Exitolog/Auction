@@ -7,9 +7,69 @@
     <title>Sign in to your account</title>
 </head>
 <body class="h-full">
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
 
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+      input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+      input[value="Зарегистрироваться"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            }
+.error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+</style>
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Для продолжения необходима авторизация</h2>
+        <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Для продолжения необходима авторизация</h1>
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 
@@ -62,10 +122,13 @@
             </div>
 
             <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Войти</button>
+                <input type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"value="Войти">
             </div>
         </form>
-        <td><a th:href="@{/users/new}"><span th:text="Зарегистрироваться"></span></a></td>
+        <p></p>
+        <form th:method="GET" th:action="@{/users/new}">
+            <input type="submit" value="Зарегистрироваться">
+        </form>
     </div>
 </body>
 </html>
