@@ -7,10 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.model.NewPrice;
 import ru.gb.repository.UserRepository;
 import ru.gb.service.PublicationPageService;
 import ru.gb.entity.Publication;
@@ -32,25 +30,22 @@ public class PublicationPageController {
 
     @GetMapping
     public String getAllPublicationPage(Model model) {
-        Optional<List<PublicationPage>> publicationPages = publicationPageService.findAll();
-        if (publicationPages.isPresent()) {
-            model.addAttribute("publications", publicationPages.get());
+        List<PublicationPage> publicationPages = publicationPageService.findAll();
+        if (!publicationPages.isEmpty()) {
+            model.addAttribute("publications", publicationPages);
             return "auction-page";
         } else return "not-found";
     }
 
     @GetMapping("/{id}")
     public String getPublicationById(@AuthenticationPrincipal UserDetails currentUser, @PathVariable("id") Long id, Model model) {
-        Optional<PublicationPage> publicationPage = publicationPageService.findPublicationPageById(id);
+        PublicationPage publicationPage = publicationPageService.findPublicationPageById(id);
         User userHolder = userRepository.findByLogin(currentUser.getUsername()).get();
-        if (publicationPage.isEmpty()) {
-            return "not-found";
-        }
-        if(publicationPageService.findPublication(id).get().getHolder().equals(userHolder)) {
-            model.addAttribute("publication", publicationPage.get());
+        if(publicationPageService.findPublication(id).getHolder().equals(userHolder)) {
+            model.addAttribute("publication", publicationPage);
             return "publication-page-holder";
         }
-        model.addAttribute("publication", publicationPage.get());
+        model.addAttribute("publication", publicationPage);
         return "publication-page";
     }
 
@@ -65,16 +60,12 @@ public class PublicationPageController {
             User userGet = publicationPageService.findUserByLogin(login);
             model.addAttribute("client", userGet);
             return "client-page";
-        //return "not-found";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        if (publicationPageService.findPublicationPageById(id).isEmpty()) return "not-found";
-        else {
-            model.addAttribute("publication", publicationPageService.findPublicationPageById(id).get());
+            model.addAttribute("publication", publicationPageService.findPublicationPageById(id));
             return "edit";
-        }
     }
 
     @PatchMapping("/{id}")
@@ -101,7 +92,7 @@ public class PublicationPageController {
     @PostMapping("/{id}")
     public String updatePrice(@PathVariable("id") Long id, @ModelAttribute("newPrice") @Valid Long newPrice, BindingResult result, @AuthenticationPrincipal UserDetails currentUser){
         String newPriceErr = publicationValidationService
-               .validNewPrice(publicationPageService.findPublication(id).get(), newPrice);
+               .validNewPrice(publicationPageService.findPublication(id), newPrice);
         if(!newPriceErr.isEmpty()) {
             ObjectError priceErr = new ObjectError("priceErr", newPriceErr);
             result.addError(priceErr);
@@ -109,7 +100,7 @@ public class PublicationPageController {
         if(result.hasErrors()){
             return "redirect:/auction/" + id;
         }
-        publicationPageService.upPrice(publicationPageService.findPublication(id).get()
+        publicationPageService.upPrice(publicationPageService.findPublication(id)
                 ,newPrice
                 ,publicationPageService.findUserByLogin(currentUser.getUsername()));
         return "redirect:/auction/" + id;

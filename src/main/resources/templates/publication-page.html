@@ -21,6 +21,7 @@
 Текущая ставка сделана: <span th:text="${publication.user}"></span> <br>
 Стартовая цена: <span th:text="${publication.startPrice}"></span> <br>
 Текущая ставка: <span th:text="${publication.priceNow}"></span> <br>
+
 <form th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
     <p>Ваша ставка: <input type="number" name="newPrice"/></p>
     <p><input type="submit" value="Сделать ставку"/> <input type="reset" value="Ввести данные заново"/></p>

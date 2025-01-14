@@ -15,38 +15,33 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PublicationPageService {
 
-
-    private final PublicationService publicationService;
     private final PublicationRepository publicationRepository;
     private final UserRepository userRepository;
 
-    // убрать оптионал
-    public Optional<List<PublicationPage>> findAll() {
-        if (publicationService.findAll().isPresent()) {
-            List<Publication> publications = publicationService.findAll().get();
-            return Optional.of(publications.stream().map(this::convertToPage).toList());
-        } else return Optional.empty();
+
+    public List<PublicationPage> findAll() {
+        return publicationRepository.findAll()
+                .stream()
+                .map(this::convertToPage)
+                .toList();
     }
 
-    public User findUserByLogin(String login){
-        return publicationService.findUserByLogin(login);
+    public User findUserByLogin(String login) {
+        return userRepository.findByLogin(login)
+                .orElseThrow(() -> new RuntimeException("Пользователь c логином " + login + " не найден"));
     }
 
     public User findUserById(Long id) {
-        return publicationService.findUserById(id);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Пользователь c id " + id + " не найден"));
     }
 
-    // убрать оптионал везде
-    public Optional<PublicationPage> findPublicationPageById(Long id) {
-        Optional<Publication> publicationOptional = publicationService.findById(id);
-        if (publicationOptional.isPresent()) {
-            return Optional.of(convertToPage(publicationOptional.get()));
-        } else return Optional.empty();
+    public PublicationPage findPublicationPageById(Long id) {
+        return publicationRepository.findById(id).map(this::convertToPage).orElse(null);
     }
 
-    public Optional<Publication> findPublication(Long id){
-        Optional<Publication> publicationOptional = publicationService.findById(id);
-        return publicationOptional;
+    public Publication findPublication(Long id){
+        return publicationRepository.findById(id).orElse(null);
     }
 
     public void create(Publication publication) {
@@ -71,7 +66,6 @@ public class PublicationPageService {
         publicationToBeUpdated.setCondition(publication.getCondition());
         publicationToBeUpdated.setDescriptionPublication(publication.getDescriptionPublication());
         publicationRepository.save(publicationToBeUpdated);
-        // сохранять в бд
     }
 
     // сделать свое исключение, ловить его хендлером , возврпащть на страницу нрмальную ошибку

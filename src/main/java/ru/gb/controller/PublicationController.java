@@ -26,15 +26,6 @@ public class PublicationController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<Publication>> getAll(){
-        if(publicationService.findAll().isPresent()) {
-            List<Publication> publications = publicationService.findAll().get();
-            return ResponseEntity.ok(publications);
-        }
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getAllPublicationByClient(@PathVariable("id") Long id){
             User userGet = publicationService.findUserById(id);

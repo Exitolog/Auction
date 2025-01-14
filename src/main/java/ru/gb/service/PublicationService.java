@@ -17,27 +17,13 @@ public class PublicationService {
     private final PublicationRepository publicationRepository;
     private final UserRepository userRepository;
 
-    // убрать оптионал
-    public Optional<Publication> findById(Long id) {
-        return publicationRepository.findById(id);
+    public Publication findById(Long id) {
+        return publicationRepository.findById(id).orElse(null);
     }
 
-    //    public Optional<List<Publication>> findAllByClient(Long id){
-//        return Optional.of(publicationRepository.findAllByClientId(id));
-//    }
-    // убрать оптионал
-    public User findUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Пользователь c id " + id + " не найден"));
-    }
 
-    public User findUserByLogin(String login) {
-        return userRepository.findByLogin(login)
-                .orElseThrow(() -> new RuntimeException("Пользователь c логином " + login + " не найден"));
-    }
-
-    public Optional<List<Publication>> findAll() {
-        return Optional.of(publicationRepository.findAll());
+    public List<Publication> findAll() {
+        return publicationRepository.findAll();
     }
 
     public Publication create(Publication publication) {
