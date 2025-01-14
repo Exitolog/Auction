@@ -21,17 +21,11 @@ public class PublicationController {
 
     @GetMapping("{id}")
     public ResponseEntity<Publication> getById(@PathVariable("id") Long id){
-        Optional<Publication> publication = publicationService.findById(id);
-        if(publication.isPresent()) return ResponseEntity.status(HttpStatus.OK).body(publication.get());
-        return ResponseEntity.notFound().build();
+        Publication publication = publicationService.findById(id);
+        if(publication != null) return ResponseEntity.status(HttpStatus.OK).body(publication);
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<User> getAllPublicationByClient(@PathVariable("id") Long id){
-            User userGet = publicationService.findUserById(id);
-            return ResponseEntity.ok(userGet);
-        //return ResponseEntity.noContent().build();
-    }
 
     @PostMapping
     public ResponseEntity<Publication> create(@RequestBody Publication publication){

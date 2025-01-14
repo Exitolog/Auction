@@ -86,6 +86,8 @@ public class PublicationPageService {
         publicationPage.setPriceNow(String.valueOf(publication.getPriceNow()));
         publicationPage.setUser(publication.getUser().getLogin());
         publicationPage.setHolder(publication.getHolder().getLogin());
+        publicationPage.setPhoneHolder(publication.getHolder().getPhoneNumber());
+        publicationPage.setLoginUser(publication.getUser().getLogin());
         publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
         return publicationPage;

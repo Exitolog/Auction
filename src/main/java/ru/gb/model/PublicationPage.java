@@ -15,9 +15,11 @@ public class PublicationPage {
     private String condition;
     private String startPrice;
     private String priceNow;
+    private String phoneHolder;
     private LocalDate datePublication;
     private LocalDate dateOfFinishTrade;
     private String descriptionPublication;
     private String user;
+    private String loginUser;
     private String holder;
 }

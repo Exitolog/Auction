@@ -40,12 +40,15 @@ public class PublicationPageController {
     @GetMapping("/{id}")
     public String getPublicationById(@AuthenticationPrincipal UserDetails currentUser, @PathVariable("id") Long id, Model model) {
         PublicationPage publicationPage = publicationPageService.findPublicationPageById(id);
-        User userHolder = userRepository.findByLogin(currentUser.getUsername()).get();
+        User userHolder = userRepository.findByLogin(currentUser.getUsername()).orElse(null);
+        if(publicationPage == null) return "not-found";
         if(publicationPageService.findPublication(id).getHolder().equals(userHolder)) {
             model.addAttribute("publication", publicationPage);
+            model.addAttribute("username", userHolder.getLogin());
             return "publication-page-holder";
         }
         model.addAttribute("publication", publicationPage);
+        model.addAttribute("username", userHolder.getLogin());
         return "publication-page";
     }
 
@@ -70,6 +73,7 @@ public class PublicationPageController {
 
     @PatchMapping("/{id}")
     public String updatePublication(@ModelAttribute("publication") Publication publication, @PathVariable("id") Long id) {
+        if(publication == null) return "redirect:/auction";
         publicationPageService.update(id, publication);
         return "redirect:/auction";
     }
