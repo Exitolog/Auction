@@ -24,11 +24,11 @@
 <p th:if="${username == publication.loginUser && publication.statusPublication == 'Продано'}">
     Телефон владельца лота: <span th:text="${publication.phoneHolder}"></span>
 </p>
-<!--Телефон владельца лота: <span th:text="${publication.phoneHolder}"></span> <br>-->
-<form th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
+<form th:if="${publication.statusPublication == 'Активные торги'}" th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
     <p>Ваша ставка: <input type="number" name="newPrice"/></p>
     <p><input type="submit" value="Сделать ставку"/> <input type="reset" value="Ввести данные заново"/></p>
 </form>
+
 Лот выставлен: <span th:text="${publication.holder}"></span> <br>
 Дата публикации: <span th:text="${publication.datePublication}"></span> <br>
 Дата окончания торгов: <span th:text="${publication.dateOfFinishTrade}"></span> <br>
