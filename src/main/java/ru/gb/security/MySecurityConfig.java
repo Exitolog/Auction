@@ -20,7 +20,8 @@ public class MySecurityConfig {
 
                .authorizeHttpRequests(requests -> requests
                        .requestMatchers("/auction").permitAll()
-                       .requestMatchers("/users/**").permitAll()
+                       .requestMatchers("/users/new").permitAll()
+                       .requestMatchers("/users").hasAuthority("ADMIN")
                        .anyRequest().hasAuthority("USER")
                )
                .formLogin(form -> form.loginPage("/login")

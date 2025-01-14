@@ -25,9 +25,6 @@
         <p th:if="${#fields.hasErrors('password')}"
            th:class="${#fields.hasErrors('password')}? error">Проверьте корректность ввода</p>
     </div>
-
-<!--    <p>Повторите пароль: <input type="password" th:field="*{confirmPassword}"/></p>-->
-
     <div>
         <label for="confirmPassword">Повторите пароль</label> <input type="password" th:field="*{confirmPassword}"
                                                       id="confirmPassword" placeholder="повторите пароль">

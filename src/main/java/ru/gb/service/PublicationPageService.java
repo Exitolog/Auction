@@ -37,19 +37,25 @@ public class PublicationPageService {
     }
 
     // убрать оптионал везде
-    public Optional<PublicationPage> findById(Long id) {
+    public Optional<PublicationPage> findPublicationPageById(Long id) {
         Optional<Publication> publicationOptional = publicationService.findById(id);
         if (publicationOptional.isPresent()) {
             return Optional.of(convertToPage(publicationOptional.get()));
         } else return Optional.empty();
     }
 
+    public Optional<Publication> findPublication(Long id){
+        Optional<Publication> publicationOptional = publicationService.findById(id);
+        return publicationOptional;
+    }
 
-    // сделать воид
     public void create(Publication publication) {
         if (Objects.isNull(publication.getUser())) {
             User user = new User();
             user.setLogin("Нет ставок");
+            user.setPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
+            user.setConfirmPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
+            user.setPhoneNumber("+79131951099");
             userRepository.save(user);
             publication.setUser(user);
         }
@@ -91,5 +97,13 @@ public class PublicationPageService {
         return publicationPage;
     }
 
+    public void upPrice(Publication publication, Long newPrice, User user) {
+        if(publication.getPriceNow() >= newPrice) {
+            throw new RuntimeException("Новая ставка не может быть меньше, либо равна текущей");
+        }
+        publication.setPriceNow(newPrice);
+        publication.setUser(user);
+        publicationRepository.save(publication);
+    }
 }
 

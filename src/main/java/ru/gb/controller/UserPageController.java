@@ -37,17 +37,9 @@ public class UserPageController {
         return "create-user";
     }
 
-//    @PostMapping("/new")
-//    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult result, Model model){
-//        if(result.hasErrors()){
-//            return "not-found";
-//        }
-//        userService.createUser(user);
-//        return "redirect:/users";
-//    }
-    
+    //Model model (не обязательно)
     @PostMapping("/new")
-    public String createUser(@Valid User user, BindingResult result, Model model){
+    public String createUser(@Valid User user, BindingResult result){
         String passErr = userValidationService.validPassword(user);
         String phoneErr = userValidationService.validPhoneNumber(user);
         String loginErr = userValidationService.validLogin(user);
@@ -67,7 +59,7 @@ public class UserPageController {
             return "create-user";
         }
         userService.createUser(user);
-        return "redirect:/users";
+        return "redirect:/auction";
     }
 
 }

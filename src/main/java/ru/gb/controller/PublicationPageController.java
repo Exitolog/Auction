@@ -1,16 +1,22 @@
 package ru.gb.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.model.NewPrice;
 import ru.gb.repository.UserRepository;
 import ru.gb.service.PublicationPageService;
 import ru.gb.entity.Publication;
 import ru.gb.model.PublicationPage;
 import ru.gb.entity.User;
+import ru.gb.service.PublicationValidationService;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +28,7 @@ public class PublicationPageController {
 
     private final PublicationPageService publicationPageService;
     private final UserRepository userRepository;
+    private final PublicationValidationService publicationValidationService;
 
     @GetMapping
     public String getAllPublicationPage(Model model) {
@@ -33,10 +40,15 @@ public class PublicationPageController {
     }
 
     @GetMapping("/{id}")
-    public String getPublicationById(@PathVariable("id") Long id, Model model) {
-        Optional<PublicationPage> publicationPage = publicationPageService.findById(id);
+    public String getPublicationById(@AuthenticationPrincipal UserDetails currentUser, @PathVariable("id") Long id, Model model) {
+        Optional<PublicationPage> publicationPage = publicationPageService.findPublicationPageById(id);
+        User userHolder = userRepository.findByLogin(currentUser.getUsername()).get();
         if (publicationPage.isEmpty()) {
             return "not-found";
+        }
+        if(publicationPageService.findPublication(id).get().getHolder().equals(userHolder)) {
+            model.addAttribute("publication", publicationPage.get());
+            return "publication-page-holder";
         }
         model.addAttribute("publication", publicationPage.get());
         return "publication-page";
@@ -58,9 +70,9 @@ public class PublicationPageController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        if (publicationPageService.findById(id).isEmpty()) return "not-found";
+        if (publicationPageService.findPublicationPageById(id).isEmpty()) return "not-found";
         else {
-            model.addAttribute("publication", publicationPageService.findById(id).get());
+            model.addAttribute("publication", publicationPageService.findPublicationPageById(id).get());
             return "edit";
         }
     }
@@ -84,4 +96,25 @@ public class PublicationPageController {
         publicationPageService.create(publication);
         return "redirect:/auction";
     }
+
+
+    @PostMapping("/{id}")
+    public String updatePrice(@PathVariable("id") Long id, @ModelAttribute("newPrice") @Valid Long newPrice, BindingResult result, @AuthenticationPrincipal UserDetails currentUser){
+        String newPriceErr = publicationValidationService
+               .validNewPrice(publicationPageService.findPublication(id).get(), newPrice);
+        if(!newPriceErr.isEmpty()) {
+            ObjectError priceErr = new ObjectError("priceErr", newPriceErr);
+            result.addError(priceErr);
+        }
+        if(result.hasErrors()){
+            return "redirect:/auction/" + id;
+        }
+        publicationPageService.upPrice(publicationPageService.findPublication(id).get()
+                ,newPrice
+                ,publicationPageService.findUserByLogin(currentUser.getUsername()));
+        return "redirect:/auction/" + id;
+    }
+
+
+
 }
