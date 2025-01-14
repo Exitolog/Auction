@@ -5,6 +5,88 @@
     <title>Создание нового лота</title>
 </head>
 <body>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.form-group input[type="text"], .form-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 100px;
+    font-size: 16px;
+}
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+input[type="reset"] {
+            background-color: #ccc;
+            color: #666;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+input[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+</style>
 <h1 align="center" style="color:SteelBlue">Введите информацию по новому лоту</h1>
 <form align="right" th:method="GET" th:action="@{/auction}">
     <input type="submit" value="На главную страницу">
@@ -33,11 +115,31 @@
 <!--                <option value="5days">5 дней</option>-->
 <!--                <option value="dateOfFinishTrade.plusDays(7)">7 дней</option>-->
 <!--            </select>-->
+    <p>Дата окончания торгов:
+                <select th:field="*{dateOfFinishTrade}">
+                    <option value="3days">3 дня</option>
+                    <option value="5days">5 дней</option>
+                    <option value="dateOfFinishTrade.plusDays(7)">7 дней</option>
+                </select>
     <p>Описание лота: <input type="text" th:field="*{descriptionPublication}"/></p>
     <p><input type="submit" value="Выставить лот"/> <input type="reset" value="Ввести данные заново"/></p>
 </form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!--<!DOCTYPE html>-->

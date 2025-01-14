@@ -25,7 +25,6 @@ import java.util.Optional;
 public class PublicationPageController {
 
     private final PublicationPageService publicationPageService;
-    private final UserRepository userRepository;
     private final PublicationValidationService publicationValidationService;
 
     @GetMapping
@@ -40,9 +39,9 @@ public class PublicationPageController {
     @GetMapping("/{id}")
     public String getPublicationById(@AuthenticationPrincipal UserDetails currentUser, @PathVariable("id") Long id, Model model) {
         PublicationPage publicationPage = publicationPageService.findPublicationPageById(id);
-        User userHolder = userRepository.findByLogin(currentUser.getUsername()).orElse(null);
-        if(publicationPage == null) return "not-found";
-        if(publicationPageService.findPublication(id).getHolder().equals(userHolder)) {
+        User userHolder = publicationPageService.findUserByLogin(currentUser.getUsername());
+        if (publicationPage == null) return "not-found";
+        if (publicationPageService.findPublication(id).getHolder().equals(userHolder)) {
             model.addAttribute("publication", publicationPage);
             model.addAttribute("username", userHolder.getLogin());
             return "publication-page-holder";
@@ -59,21 +58,20 @@ public class PublicationPageController {
     }
 
     @GetMapping("/user/{login}")
-    public String getAllPublicationByClient(Model model, @PathVariable("login") String login){
-            User userGet = publicationPageService.findUserByLogin(login);
-            model.addAttribute("client", userGet);
-            return "client-page";
+    public String getAllPublicationByClient(Model model, @PathVariable("login") String login) {
+        model.addAttribute("client", publicationPageService.findUserByLogin(login));
+        return "client-page";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-            model.addAttribute("publication", publicationPageService.findPublicationPageById(id));
-            return "edit";
+        model.addAttribute("publication", publicationPageService.findPublicationPageById(id));
+        return "edit";
     }
 
     @PatchMapping("/{id}")
     public String updatePublication(@ModelAttribute("publication") Publication publication, @PathVariable("id") Long id) {
-        if(publication == null) return "redirect:/auction";
+        if (publication == null) return "redirect:/auction";
         publicationPageService.update(id, publication);
         return "redirect:/auction";
     }
@@ -86,30 +84,25 @@ public class PublicationPageController {
 
     @PostMapping("/new")
     public String createPublication(@AuthenticationPrincipal UserDetails currentUser, @ModelAttribute("publication") Publication publication) {
-        User userHolder = userRepository.findByLogin(currentUser.getUsername()).get();
-        publication.setHolder(userHolder);
-        publicationPageService.create(publication);
+        publicationPageService.create(publication, publicationPageService.findUserByLogin(currentUser.getUsername()));
         return "redirect:/auction";
     }
 
 
     @PostMapping("/{id}")
-    public String updatePrice(@PathVariable("id") Long id, @ModelAttribute("newPrice") @Valid Long newPrice, BindingResult result, @AuthenticationPrincipal UserDetails currentUser){
+    public String updatePrice(@PathVariable("id") Long id, @ModelAttribute("newPrice") @Valid Long newPrice, BindingResult result, @AuthenticationPrincipal UserDetails currentUser) {
         String newPriceErr = publicationValidationService
-               .validNewPrice(publicationPageService.findPublication(id), newPrice);
-        if(!newPriceErr.isEmpty()) {
+                .validNewPrice(publicationPageService.findPublication(id), newPrice);
+        if (!newPriceErr.isEmpty()) {
             ObjectError priceErr = new ObjectError("priceErr", newPriceErr);
             result.addError(priceErr);
         }
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "redirect:/auction/" + id;
         }
         publicationPageService.upPrice(publicationPageService.findPublication(id)
-                ,newPrice
-                ,publicationPageService.findUserByLogin(currentUser.getUsername()));
+                , newPrice
+                , publicationPageService.findUserByLogin(currentUser.getUsername()));
         return "redirect:/auction/" + id;
     }
-
-
-
 }

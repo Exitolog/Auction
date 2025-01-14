@@ -63,4 +63,6 @@ public class Publication {
         this.user = user;
         this.holder = holder;
     }
+
+
 }

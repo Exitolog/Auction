@@ -7,9 +7,9 @@ import ru.gb.repository.PublicationRepository;
 import ru.gb.model.PublicationPage;
 import ru.gb.entity.User;
 import ru.gb.repository.UserRepository;
+
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,14 +37,14 @@ public class PublicationPageService {
     }
 
     public PublicationPage findPublicationPageById(Long id) {
-        return publicationRepository.findById(id).map(this::convertToPage).orElse(null);
+        return convertToPage(Objects.requireNonNull(publicationRepository.findById(id).orElse(null)));
     }
 
-    public Publication findPublication(Long id){
+    public Publication findPublication(Long id) {
         return publicationRepository.findById(id).orElse(null);
     }
 
-    public void create(Publication publication) {
+    public void create(Publication publication, User holder) {
         if (Objects.isNull(publication.getUser())) {
             User user = new User();
             user.setLogin("Нет ставок");
@@ -55,6 +55,7 @@ public class PublicationPageService {
             publication.setUser(user);
         }
         publication.setPriceNow(1L);
+        publication.setHolder(holder);
         publicationRepository.save(publication);
         convertToPage(publication);
     }
@@ -94,12 +95,13 @@ public class PublicationPageService {
     }
 
     public void upPrice(Publication publication, Long newPrice, User user) {
-        if(publication.getPriceNow() >= newPrice) {
+        if (publication.getPriceNow() >= newPrice) {
             throw new RuntimeException("Новая ставка не может быть меньше, либо равна текущей");
         }
         publication.setPriceNow(newPrice);
         publication.setUser(user);
         publicationRepository.save(publication);
     }
+
 }
 

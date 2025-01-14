@@ -63,6 +63,9 @@
 <body>
 <div class="container">
     <h1>Добро пожаловать на лот № <span th:text="${publication.id}"></span></h1>
+    <form align="right" th:method="GET" th:action="@{/auction}">
+        <input type="submit" value="На главную страницу">
+    </form>
     <div class="publication-info">
         <div>
             <label>Статус публикации:</label>

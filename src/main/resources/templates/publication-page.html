@@ -18,6 +18,20 @@
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        .form-group label {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+        }
+        .form-group input[type="text"], .form-group input[type="password"], .form-group input[type="email"], .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 40px;
+            font-size: 16px;
+        }
         h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -63,6 +77,9 @@
 <body>
 <div class="container">
     <h1>Добро пожаловать на лот № <span th:text="${publication.id}"></span></h1>
+    <form align="right" th:method="GET" th:action="@{/auction}">
+        <input type="submit" value="На главную страницу">
+    </form>
     <div class="publication-info">
         <div>
             <label>Статус публикации:</label>
@@ -102,7 +119,8 @@
         </div>
     </div>
     <div class="publication-actions">
-        <form th:if="${publication.statusPublication == 'Активные торги'}" th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
+        <form th:if="${publication.statusPublication == 'Активные торги'}" th:method="POST"
+              th:action="@{/auction/{id}(id=${publication.id})}">
             <input type="number" name="newPrice" placeholder="Ваша ставка">
             <input type="submit" value="Сделать ставку">
             <input type="reset" value="Ввести данные заново">
