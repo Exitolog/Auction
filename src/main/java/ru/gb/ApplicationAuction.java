@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import ru.gb.entity.Publication;
+import ru.gb.entity.enums.LifeTimePublication;
 import ru.gb.repository.PublicationRepository;
 import ru.gb.entity.enums.Category;
 import ru.gb.entity.enums.Condition;
@@ -81,7 +82,8 @@ public class ApplicationAuction {
 
         myFirstLaptopPublication.setCategory(Category.LAPTOP);
         myFirstLaptopPublication.setStatusPublication(StatusPublication.ACTIVE);
-        myFirstLaptopPublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 19));
+//        myFirstLaptopPublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 19));
+        myFirstLaptopPublication.setDateOfFinishTrade(LifeTimePublication.THREE);
         myFirstLaptopPublication.setDescriptionPublication("Продаю ноутбук HP");
         myFirstLaptopPublication.setPriceNow(100L);
         myFirstLaptopPublication.setCondition(Condition.USED);
@@ -91,7 +93,8 @@ public class ApplicationAuction {
 
         myFirstPhonePublication.setCategory(Category.PHONE);
         myFirstPhonePublication.setStatusPublication(StatusPublication.ACTIVE);
-        myFirstPhonePublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 20));
+//        myFirstPhonePublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 20));
+        myFirstPhonePublication.setDateOfFinishTrade(LifeTimePublication.FIVE);
         myFirstPhonePublication.setCondition(Condition.USED);
         myFirstPhonePublication.setPriceNow(780L);
         myFirstPhonePublication.setDescriptionPublication("Продаю телефон Samsung");
@@ -101,7 +104,8 @@ public class ApplicationAuction {
 
         myFirstTelevisorPublication.setCategory(Category.TELEVISOR);
         myFirstTelevisorPublication.setStatusPublication(StatusPublication.ARCHIVE);
-        myFirstTelevisorPublication.setDateOfFinishTrade(LocalDate.of(2024,11,22));
+//        myFirstTelevisorPublication.setDateOfFinishTrade(LocalDate.of(2024,11,22));
+        myFirstTelevisorPublication.setDateOfFinishTrade(LifeTimePublication.THREE);
         myFirstTelevisorPublication.setPriceNow(440L);
         myFirstTelevisorPublication.setUser(tanya);
         myFirstTelevisorPublication.setHolder(vanya);
@@ -111,7 +115,8 @@ public class ApplicationAuction {
 
         mySecondTelevisorPublication.setCategory(Category.TELEVISOR);
         mySecondTelevisorPublication.setStatusPublication(StatusPublication.ACTIVE);
-        mySecondTelevisorPublication.setDateOfFinishTrade(LocalDate.of(2024,11,23));
+//        mySecondTelevisorPublication.setDateOfFinishTrade(LocalDate.of(2024,11,23));
+        mySecondTelevisorPublication.setDateOfFinishTrade(LifeTimePublication.FIVE);
         mySecondTelevisorPublication.setDescriptionPublication("Продаю телевизор TCL");
         mySecondTelevisorPublication.setCondition(Condition.USED);
         mySecondTelevisorPublication.setUser(pasha);
@@ -121,7 +126,8 @@ public class ApplicationAuction {
 
         mySecondPhonePublication.setCategory(Category.PHONE);
         mySecondPhonePublication.setStatusPublication(StatusPublication.ACTIVE);
-        mySecondPhonePublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 19));
+//        mySecondPhonePublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 19));
+        mySecondPhonePublication.setDateOfFinishTrade(LifeTimePublication.SEVEN);
         mySecondPhonePublication.setCondition(Condition.USED);
         mySecondPhonePublication.setPriceNow(12000L);
         mySecondPhonePublication.setUser(pasha);
@@ -131,7 +137,8 @@ public class ApplicationAuction {
 
         mySecondLaptopPublication.setCategory(Category.LAPTOP);
         mySecondLaptopPublication.setStatusPublication(StatusPublication.SOLD);
-        mySecondLaptopPublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 20));
+//        mySecondLaptopPublication.setDateOfFinishTrade(LocalDate.of(2024, 11, 20));
+        mySecondLaptopPublication.setDateOfFinishTrade(LifeTimePublication.THREE);
         mySecondLaptopPublication.setDescriptionPublication("Продаю ноутбук MSI");
         mySecondLaptopPublication.setCondition(Condition.USED);
         mySecondLaptopPublication.setUser(tanya);

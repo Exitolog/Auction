@@ -1,6 +1,7 @@
 package ru.gb.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.gb.entity.Publication;
 import ru.gb.repository.PublicationRepository;
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PublicationPageService {
 
     private final PublicationRepository publicationRepository;
@@ -63,16 +65,18 @@ public class PublicationPageService {
     public void update(Long id, Publication publication) {
         Publication publicationToBeUpdated = publicationRepository.findById(id).get();
         publicationToBeUpdated.setCategory(publication.getCategory());
-        publicationToBeUpdated.setDateOfFinishTrade(publication.getDateOfFinishTrade());
+//        publicationToBeUpdated.setDateOfFinishTrade(publication.getDateOfFinishTrade());
         publicationToBeUpdated.setCondition(publication.getCondition());
         publicationToBeUpdated.setDescriptionPublication(publication.getDescriptionPublication());
         publicationRepository.save(publicationToBeUpdated);
     }
 
     // сделать свое исключение, ловить его хендлером , возврпащть на страницу нрмальную ошибку
-    public void delete(Long id) {
-        if (publicationRepository.findById(id).isPresent()) publicationRepository.deleteById(id);
-        else throw new RuntimeException("Лота с идентификатором " + id + " не существует");
+    public void delete(Long id, User user) {
+        Publication publication = publicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Лота с идентификатором " + id + " не существует"));
+        if(publication.getHolder().equals(user)) {
+            publicationRepository.delete(publication);
+        }
     }
 
     // почитать про маппер
@@ -89,12 +93,16 @@ public class PublicationPageService {
         publicationPage.setHolder(publication.getHolder().getLogin());
         publicationPage.setPhoneHolder(publication.getHolder().getPhoneNumber());
         publicationPage.setLoginUser(publication.getUser().getLogin());
-        publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
+        publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade().getDateOfFinish());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
         return publicationPage;
     }
 
     public void upPrice(Publication publication, Long newPrice, User user) {
+        System.out.println("New price " + newPrice);
+        System.out.println("Id " + publication.getId());
+        System.out.println("User = " + user.getLogin());
+        log.info("Пользователь {} ставил новую цену {} на публикацию {}", user.getLogin(), newPrice, publication.getId());
         if (publication.getPriceNow() >= newPrice) {
             throw new RuntimeException("Новая ставка не может быть меньше, либо равна текущей");
         }

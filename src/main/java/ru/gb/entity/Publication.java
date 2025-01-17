@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.gb.entity.enums.Category;
 import ru.gb.entity.enums.Condition;
+import ru.gb.entity.enums.LifeTimePublication;
 import ru.gb.entity.enums.StatusPublication;
 
 
@@ -41,7 +42,7 @@ public class Publication {
     private LocalDate datePublication = LocalDate.now();
 
     @Schema(description = "Дата окончания торгов")
-    private LocalDate dateOfFinishTrade;
+    private LifeTimePublication dateOfFinishTrade;
 
     @Schema(description = "Логин user с лидирующей ставкой")
     @ManyToOne

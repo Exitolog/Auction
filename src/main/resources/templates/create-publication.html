@@ -10,7 +10,6 @@
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
 }
-
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -18,22 +17,18 @@
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 h1 {
     text-align: center;
     margin-bottom: 20px;
 }
-
 .form-group {
     margin-bottom: 20px;
 }
-
 .form-group label {
     font-weight: bold;
     margin-bottom: 10px;
     display: block;
 }
-
 .form-group input[type="text"], .form-group input[type="number"] {
     width: 100%;
     padding: 10px;
@@ -43,7 +38,6 @@ h1 {
     height: 40px;
     font-size: 16px;
 }
-
 .form-group textarea {
     width: 100%;
     padding: 10px;
@@ -62,7 +56,6 @@ h1 {
     height: 40px;
     font-size: 16px;
 }
-
 input[type="submit"] {
     background-color: #4CAF50;
     color: #fff;
@@ -109,73 +102,14 @@ input[type="submit"]:hover {
                 <option value="INCORRECT">Неисправно</option>
             </select>
         </label>
-    <p>Дата окончания торгов: <input type="date" th:field="*{dateOfFinishTrade}"/></p>
-<!--            <select th:field="*{dateOfFinishTrade}">-->
-<!--                <option value="3days">3 дня</option>-->
-<!--                <option value="5days">5 дней</option>-->
-<!--                <option value="dateOfFinishTrade.plusDays(7)">7 дней</option>-->
-<!--            </select>-->
     <p>Дата окончания торгов:
                 <select th:field="*{dateOfFinishTrade}">
-                    <option value="3days">3 дня</option>
-                    <option value="5days">5 дней</option>
-                    <option value="dateOfFinishTrade.plusDays(7)">7 дней</option>
+                    <option value="THREE">3 дня</option>
+                    <option value="FIVE">5 дней</option>
+                    <option value="SEVEN">7 дней</option>
                 </select>
     <p>Описание лота: <input type="text" th:field="*{descriptionPublication}"/></p>
     <p><input type="submit" value="Выставить лот"/> <input type="reset" value="Ввести данные заново"/></p>
 </form>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>Date Selector Example</title>-->
-<!--    <script>-->
-<!--        function updateDate() {-->
-<!--            const today = new Date();-->
-<!--            const selectElement = document.getElementById("dateSelector");-->
-<!--            const selectedValue = selectElement.value;-->
-<!--            let futureDate;-->
-
-<!--            if (selectedValue === "3days") {-->
-<!--                futureDate = new Date(today);-->
-<!--                futureDate.setDate(today.getDate() + 3);-->
-<!--            } else if (selectedValue === "5days") {-->
-<!--                futureDate = new Date(today);-->
-<!--                futureDate.setDate(today.getDate() + 5);-->
-<!--            }-->
-
-<!--            document.getElementById("result").innerText = `Selected date: ${futureDate.toDateString()}`;-->
-<!--        }-->
-<!--        </script>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Select a Future Date</h1>-->
-<!--<label for="dateSelector">Choose a date option:</label>-->
-<!--<select id="dateSelector" onchange="updateDate()">-->
-<!--    <option value="">&#45;&#45;Select an option&#45;&#45;</option>-->
-<!--    <option value="3days">3 Days from Now</option>-->
-<!--    <option value="5days">5 Days from Now</option>-->
-<!--</select>-->
-
-<!--<h2 id="result"></h2>-->
-<!--</body>-->
-<!--</html>-->

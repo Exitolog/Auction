@@ -17,7 +17,6 @@ public class MySecurityConfig {
        return   http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-
                .authorizeHttpRequests(requests -> requests
                        .requestMatchers("/auction").permitAll()
                        .requestMatchers("/users/new").permitAll()
@@ -26,7 +25,6 @@ public class MySecurityConfig {
                )
                .formLogin(form -> form.loginPage("/login")
                        .permitAll())
-
                 .build();
     }
 

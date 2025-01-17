@@ -9,15 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.repository.UserRepository;
 import ru.gb.service.PublicationPageService;
 import ru.gb.entity.Publication;
 import ru.gb.model.PublicationPage;
 import ru.gb.entity.User;
 import ru.gb.service.PublicationValidationService;
-
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/auction")
@@ -63,22 +61,27 @@ public class PublicationPageController {
         return "client-page";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("publication", publicationPageService.findPublicationPageById(id));
         return "edit";
     }
 
-    @PatchMapping("/{id}")
-    public String updatePublication(@ModelAttribute("publication") Publication publication, @PathVariable("id") Long id) {
-        if (publication == null) return "redirect:/auction";
+    @PostMapping("/edit/{id}")
+    public String updatePublication(@ModelAttribute Publication publication, @PathVariable("id") Long id) {
         publicationPageService.update(id, publication);
         return "redirect:/auction";
     }
 
-    @DeleteMapping("/{id}")
-    public String deletePublication(@PathVariable("id") Long id) {
-        publicationPageService.delete(id);
+//    @PostMapping("/edit")
+//    public String updatePublication(@ModelAttribute("publication") Publication publication, @RequestParam("id") Long id) {
+//        publicationPageService.update(id, publication);
+//        return "redirect:/auction";
+//    }
+
+    @PostMapping("/delete")
+    public String deletePublication(@AuthenticationPrincipal UserDetails currentUser, @RequestParam("id") Long id) {
+        publicationPageService.delete(id, publicationPageService.findUserByLogin(currentUser.getUsername()));
         return "redirect:/auction";
     }
 
@@ -87,7 +90,6 @@ public class PublicationPageController {
         publicationPageService.create(publication, publicationPageService.findUserByLogin(currentUser.getUsername()));
         return "redirect:/auction";
     }
-
 
     @PostMapping("/{id}")
     public String updatePrice(@PathVariable("id") Long id, @ModelAttribute("newPrice") @Valid Long newPrice, BindingResult result, @AuthenticationPrincipal UserDetails currentUser) {
