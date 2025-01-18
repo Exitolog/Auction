@@ -25,6 +25,7 @@ public class PublicationPageController {
     private final PublicationPageService publicationPageService;
     private final PublicationValidationService publicationValidationService;
 
+    //Базовый запрос на главную страница аукциона
     @GetMapping
     public String getAllPublicationPage(Model model) {
         List<PublicationPage> publicationPages = publicationPageService.findAll();
@@ -34,6 +35,7 @@ public class PublicationPageController {
         } else return "not-found";
     }
 
+    //Гет запрос к публикации по идентификатору
     @GetMapping("/{id}")
     public String getPublicationById(@AuthenticationPrincipal UserDetails currentUser, @PathVariable("id") Long id, Model model) {
         PublicationPage publicationPage = publicationPageService.findPublicationPageById(id);
@@ -49,48 +51,53 @@ public class PublicationPageController {
         return "publication-page";
     }
 
+
+    //Гет запрос к странице с созданием новой публикации
     @GetMapping("/new")
     public String newPublication(Model model) {
         model.addAttribute("publication", new Publication());
         return "create-publication";
     }
 
+    //FIXME: некорректно отображает список публикаций
     @GetMapping("/user/{login}")
     public String getAllPublicationByClient(Model model, @PathVariable("login") String login) {
         model.addAttribute("client", publicationPageService.findUserByLogin(login));
         return "client-page";
     }
 
+    //Гет запрос к странице для изменения публикации
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("publication", publicationPageService.findPublicationPageById(id));
         return "edit";
     }
 
+
+    //Пост запрос на изменение информации по лоту
     @PostMapping("/edit/{id}")
-    public String updatePublication(@ModelAttribute Publication publication, @PathVariable("id") Long id) {
+    public String updatePublication(@AuthenticationPrincipal UserDetails currentUser,@ModelAttribute Publication publication, @PathVariable("id") Long id) {
+        if(publicationPageService.findPublication(id).getHolder().equals(publicationPageService.findUserByLogin(currentUser.getUsername())))
         publicationPageService.update(id, publication);
         return "redirect:/auction";
     }
 
-//    @PostMapping("/edit")
-//    public String updatePublication(@ModelAttribute("publication") Publication publication, @RequestParam("id") Long id) {
-//        publicationPageService.update(id, publication);
-//        return "redirect:/auction";
-//    }
 
+    //Запрос на удаление publication от владельца(с проверкой)
     @PostMapping("/delete")
     public String deletePublication(@AuthenticationPrincipal UserDetails currentUser, @RequestParam("id") Long id) {
         publicationPageService.delete(id, publicationPageService.findUserByLogin(currentUser.getUsername()));
         return "redirect:/auction";
     }
 
+    //Запрос на создание публикации
     @PostMapping("/new")
     public String createPublication(@AuthenticationPrincipal UserDetails currentUser, @ModelAttribute("publication") Publication publication) {
         publicationPageService.create(publication, publicationPageService.findUserByLogin(currentUser.getUsername()));
         return "redirect:/auction";
     }
 
+    //Запрос на обновление цены лота для пользователей(с проверкой)
     @PostMapping("/{id}")
     public String updatePrice(@PathVariable("id") Long id, @ModelAttribute("newPrice") @Valid Long newPrice, BindingResult result, @AuthenticationPrincipal UserDetails currentUser) {
         String newPriceErr = publicationValidationService

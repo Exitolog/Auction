@@ -63,12 +63,12 @@ public class PublicationPageService {
     }
 
     public void update(Long id, Publication publication) {
-        Publication publicationToBeUpdated = publicationRepository.findById(id).get();
-        publicationToBeUpdated.setCategory(publication.getCategory());
+            Publication publicationToBeUpdated = publicationRepository.findById(id).get();
+            publicationToBeUpdated.setCategory(publication.getCategory());
 //        publicationToBeUpdated.setDateOfFinishTrade(publication.getDateOfFinishTrade());
-        publicationToBeUpdated.setCondition(publication.getCondition());
-        publicationToBeUpdated.setDescriptionPublication(publication.getDescriptionPublication());
-        publicationRepository.save(publicationToBeUpdated);
+            publicationToBeUpdated.setCondition(publication.getCondition());
+            publicationToBeUpdated.setDescriptionPublication(publication.getDescriptionPublication());
+            publicationRepository.save(publicationToBeUpdated);
     }
 
     // сделать свое исключение, ловить его хендлером , возврпащть на страницу нрмальную ошибку
