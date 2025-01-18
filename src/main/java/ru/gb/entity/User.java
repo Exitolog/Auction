@@ -44,7 +44,7 @@ public class User {
     )
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "holder", fetch = FetchType.EAGER)
     private List<Publication> publicationList = new ArrayList<>();
 
     public void addPublication(Publication publication) {

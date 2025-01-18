@@ -8,9 +8,9 @@ import ru.gb.repository.PublicationRepository;
 import ru.gb.model.PublicationPage;
 import ru.gb.entity.User;
 import ru.gb.repository.UserRepository;
-
 import java.util.List;
 import java.util.Objects;
+
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +60,7 @@ public class PublicationPageService {
         publication.setHolder(holder);
         publicationRepository.save(publication);
         convertToPage(publication);
+        log.info("Пользователь {} пытается опубликовать публикацию {}", holder.getLogin(), publication.getId());
     }
 
     public void update(Long id, Publication publication) {
@@ -75,6 +76,7 @@ public class PublicationPageService {
     public void delete(Long id, User user) {
         Publication publication = publicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Лота с идентификатором " + id + " не существует"));
         if(publication.getHolder().equals(user)) {
+            log.info("Пользователь {} пытается удалить публикацию {}", user.getLogin(), publication.getId());
             publicationRepository.delete(publication);
         }
     }
@@ -93,16 +95,14 @@ public class PublicationPageService {
         publicationPage.setHolder(publication.getHolder().getLogin());
         publicationPage.setPhoneHolder(publication.getHolder().getPhoneNumber());
         publicationPage.setLoginUser(publication.getUser().getLogin());
-        publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade().getDateOfFinish());
+        publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
+//        publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade().getDateOfFinish());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
         return publicationPage;
     }
 
     public void upPrice(Publication publication, Long newPrice, User user) {
-        System.out.println("New price " + newPrice);
-        System.out.println("Id " + publication.getId());
-        System.out.println("User = " + user.getLogin());
-        log.info("Пользователь {} ставил новую цену {} на публикацию {}", user.getLogin(), newPrice, publication.getId());
+        log.info("Пользователь {} пытается сделать ставку {} на публикацию {}", user.getLogin(), newPrice, publication.getId());
         if (publication.getPriceNow() >= newPrice) {
             throw new RuntimeException("Новая ставка не может быть меньше, либо равна текущей");
         }

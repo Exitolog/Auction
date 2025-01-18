@@ -78,7 +78,7 @@ public class PublicationPageController {
     @PostMapping("/edit/{id}")
     public String updatePublication(@AuthenticationPrincipal UserDetails currentUser,@ModelAttribute Publication publication, @PathVariable("id") Long id) {
         if(publicationPageService.findPublication(id).getHolder().equals(publicationPageService.findUserByLogin(currentUser.getUsername())))
-        publicationPageService.update(id, publication);
+            publicationPageService.update(id, publication);
         return "redirect:/auction";
     }
 

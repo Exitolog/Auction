@@ -42,7 +42,7 @@ public class Publication {
     private LocalDate datePublication = LocalDate.now();
 
     @Schema(description = "Дата окончания торгов")
-    private LifeTimePublication dateOfFinishTrade;
+    private LocalDate dateOfFinishTrade;
 
     @Schema(description = "Логин user с лидирующей ставкой")
     @ManyToOne
