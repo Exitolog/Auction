@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home / Publication Page</title>
+    <title>Publication page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,20 +17,6 @@
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .form-group label {
-        font-weight: bold;
-        margin-bottom: 10px;
-        display: block;
-        }
-        .form-group input[type="text"], .form-group input[type="password"], .form-group input[type="email"], .form-group input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            height: 40px;
-            font-size: 16px;
         }
         h1 {
             text-align: center;
@@ -72,6 +58,14 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        input[value="Изменить лот"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            }
     </style>
 </head>
 <body>
@@ -119,13 +113,23 @@
         </div>
     </div>
     <div class="publication-actions">
-        <form th:if="${publication.statusPublication == 'Активные торги'}" th:method="POST"
-              th:action="@{/auction/{id}(id=${publication.id})}">
+        <form th:if="${publication.statusPublication == 'Активные торги' && publication.holder != username}" th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
             <input type="number" name="newPrice" placeholder="Ваша ставка">
             <input type="submit" value="Сделать ставку">
             <input type="reset" value="Ввести данные заново">
         </form>
     </div>
-</div>
+    <div>
+        <form th:if="${publication.holder == username}" th:method="post" th:action="@{/auction/delete}">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="id" th:value="${publication.id}">
+            <input type="submit" value="Удалить лот">
+        </form>
+        <p><form th:if="${publication.holder == username}" th:method="GET" th:action="@{/auction/edit/{id}(id=${publication.id})}">
+        <input type="hidden" name="_method" value="GET">
+        <input type="submit" value="Изменить лот">
+    </form>
+    </div>
+    </div>
 </body>
 </html>

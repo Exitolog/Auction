@@ -17,19 +17,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-
-
-//   public String userLogin(UserPage userPage){
-//       try {
-//          Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userPage.getLogin(), userPage.getPassword()));
-//          SecurityContextHolder.getContext().setAuthentication(authentication);
-//           return "login success";
-//       } catch (Exception e) {
-//           throw new UsernameNotFoundException("user not found");
-//       }
-//   }
-
-
    public List<User> getAllUsers(){
     return userRepository.findAll();
    }

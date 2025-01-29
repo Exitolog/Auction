@@ -11,6 +11,7 @@ import ru.gb.entity.enums.StatusPublication;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -39,31 +40,21 @@ public class Publication {
     private Long priceNow;
 
     @Schema(description = "Дата публикации")
-    private LocalDate datePublication = LocalDate.now();
+    private LocalDateTime datePublication = LocalDateTime.now();
 
     @Schema(description = "Дата окончания торгов")
-    private LocalDate dateOfFinishTrade;
+    private LocalDateTime dateOfFinishTrade;
 
-    @Schema(description = "Логин user с лидирующей ставкой")
+    @Schema(description = "User с лидирующей ставкой")
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Schema(description = "Логин user кому принадлежит лот")
+    @Schema(description = "User кому принадлежит лот")
     @ManyToOne
     @JoinColumn(name = "holder_id")
     private User holder;
 
     @Schema(description = "Описание к публикации")
     private String descriptionPublication;
-
-    public Publication() {
-    }
-
-    public Publication(User user, User holder) {
-        this.user = user;
-        this.holder = holder;
-    }
-
-
 }

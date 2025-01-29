@@ -3,7 +3,6 @@ package ru.gb.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.entity.Publication;
-import ru.gb.entity.User;
 import ru.gb.repository.PublicationRepository;
 
 @Service

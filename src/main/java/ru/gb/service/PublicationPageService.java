@@ -4,28 +4,48 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.gb.entity.Publication;
+import ru.gb.entity.enums.StatusPublication;
 import ru.gb.repository.PublicationRepository;
 import ru.gb.model.PublicationPage;
 import ru.gb.entity.User;
 import ru.gb.repository.UserRepository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class PublicationPageService {
 
+
+
+
     private final PublicationRepository publicationRepository;
     private final UserRepository userRepository;
+    private final User nullUser;
 
+    public PublicationPageService(PublicationRepository publicationRepository, UserRepository userRepository) {
+        this.publicationRepository = publicationRepository;
+        this.userRepository = userRepository;
+        nullUser = new User();
+        nullUser.setLogin("Нет ставок");
+        nullUser.setPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
+        nullUser.setConfirmPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
+        nullUser.setPhoneNumber("+79131951099");
+        userRepository.save(nullUser);
+    }
 
-    public List<PublicationPage> findAll() {
+    public List<PublicationPage> findAllPublicationPage() {
         return publicationRepository.findAll()
                 .stream()
                 .map(this::convertToPage)
                 .toList();
+    }
+
+    public List<Publication> findAllPublication() {
+        return publicationRepository.findAll();
     }
 
     public User findUserByLogin(String login) {
@@ -48,31 +68,23 @@ public class PublicationPageService {
 
     public void create(Publication publication, User holder) {
         if (Objects.isNull(publication.getUser())) {
-            User user = new User();
-            user.setLogin("Нет ставок");
-            user.setPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
-            user.setConfirmPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
-            user.setPhoneNumber("+79131951099");
-            userRepository.save(user);
-            publication.setUser(user);
+            publication.setUser(nullUser);
         }
         publication.setPriceNow(1L);
         publication.setHolder(holder);
         publicationRepository.save(publication);
         convertToPage(publication);
-        log.info("Пользователь {} пытается опубликовать публикацию {}", holder.getLogin(), publication.getId());
+        log.info("Пользователь {} опубликовал публикацию {}", holder.getLogin(), publication.getId());
     }
 
     public void update(Long id, Publication publication) {
-            Publication publicationToBeUpdated = publicationRepository.findById(id).get();
+            Publication publicationToBeUpdated = publicationRepository.findById(id).orElseThrow();
             publicationToBeUpdated.setCategory(publication.getCategory());
-//        publicationToBeUpdated.setDateOfFinishTrade(publication.getDateOfFinishTrade());
             publicationToBeUpdated.setCondition(publication.getCondition());
             publicationToBeUpdated.setDescriptionPublication(publication.getDescriptionPublication());
             publicationRepository.save(publicationToBeUpdated);
     }
 
-    // сделать свое исключение, ловить его хендлером , возврпащть на страницу нрмальную ошибку
     public void delete(Long id, User user) {
         Publication publication = publicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Лота с идентификатором " + id + " не существует"));
         if(publication.getHolder().equals(user)) {
@@ -96,7 +108,6 @@ public class PublicationPageService {
         publicationPage.setPhoneHolder(publication.getHolder().getPhoneNumber());
         publicationPage.setLoginUser(publication.getUser().getLogin());
         publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
-//        publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade().getDateOfFinish());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
         return publicationPage;
     }
@@ -106,9 +117,25 @@ public class PublicationPageService {
         if (publication.getPriceNow() >= newPrice) {
             throw new RuntimeException("Новая ставка не может быть меньше, либо равна текущей");
         }
+        if(publication.getHolder().equals(user)) {
+            throw new RuntimeException("Владелец лота не может сделать ставку на свою публикацию");
+        }
         publication.setPriceNow(newPrice);
         publication.setUser(user);
         publicationRepository.save(publication);
+    }
+
+    public void checkFinishTrade(Publication publication){
+        if(publication.getDateOfFinishTrade().isBefore(LocalDateTime.now())) {
+            publication.setStatusPublication(StatusPublication.SOLD);
+            publicationRepository.save(publication);
+            log.info("Публикация {} продана, победитель торгов пользователь {}", publication.getId(), publication.getUser().getLogin());
+        }
+        if(publication.getDateOfFinishTrade().plusDays(2).isBefore(LocalDateTime.now())) {
+            publication.setStatusPublication(StatusPublication.ARCHIVE);
+            publicationRepository.save(publication);
+            log.info("Публикация {} переведена в архив", publication.getId());
+        }
     }
 
 }

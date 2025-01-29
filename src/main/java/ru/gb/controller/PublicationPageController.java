@@ -28,7 +28,7 @@ public class PublicationPageController {
     //Базовый запрос на главную страница аукциона
     @GetMapping
     public String getAllPublicationPage(Model model) {
-        List<PublicationPage> publicationPages = publicationPageService.findAll();
+        List<PublicationPage> publicationPages = publicationPageService.findAllPublicationPage();
         if (!publicationPages.isEmpty()) {
             model.addAttribute("publications", publicationPages);
             return "auction-page";
@@ -41,16 +41,10 @@ public class PublicationPageController {
         PublicationPage publicationPage = publicationPageService.findPublicationPageById(id);
         User userHolder = publicationPageService.findUserByLogin(currentUser.getUsername());
         if (publicationPage == null) return "not-found";
-        if (publicationPageService.findPublication(id).getHolder().equals(userHolder)) {
-            model.addAttribute("publication", publicationPage);
-            model.addAttribute("username", userHolder.getLogin());
-            return "publication-page-holder";
-        }
         model.addAttribute("publication", publicationPage);
         model.addAttribute("username", userHolder.getLogin());
         return "publication-page";
     }
-
 
     //Гет запрос к странице с созданием новой публикации
     @GetMapping("/new")
