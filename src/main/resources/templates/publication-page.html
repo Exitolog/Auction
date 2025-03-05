@@ -97,7 +97,7 @@
         </div>
         <div>
             <label>Дата окончания торгов:</label>
-            <span th:text="${publication.dateOfFinishTrade}"></span>
+            <span th:text="${#temporals.format(publication.dateOfFinishTrade, 'dd-MMMM-yyyy HH:mm')}"></span>
         </div>
         <div>
             <label>Описание:</label>

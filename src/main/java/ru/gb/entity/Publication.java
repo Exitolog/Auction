@@ -39,11 +39,9 @@ public class Publication {
     private Long priceNow;
 
     @Schema(description = "Дата публикации")
-//    @JsonFormat(pattern = "dd-MMM-yyyy HH:mm")
     private LocalDateTime datePublication = LocalDateTime.now();
 
     @Schema(description = "Дата окончания торгов")
-//    @JsonFormat(pattern = "dd-MMM-yyyy HH:mm")
     private LocalDateTime dateOfFinishTrade;
 
     @Schema(description = "User с лидирующей ставкой")

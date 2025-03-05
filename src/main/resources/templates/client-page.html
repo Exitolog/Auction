@@ -73,7 +73,7 @@
         <td><span th:text="${publication.condition}"></span></td>
         <td><span th:text="${publication.user.login}"></span></td>
         <td><span th:text="${publication.priceNow}"></span></td>
-        <td><span th:text="${publication.dateOfFinishTrade}"></span></td>
+        <td><span th:text="${#temporals.format(publication.dateOfFinishTrade, 'dd-MMMM-yyyy HH:mm')}"></span></td>
         <td><span th:text="${publication.descriptionPublication}"></span></td>
     </tr>
     </tbody>
