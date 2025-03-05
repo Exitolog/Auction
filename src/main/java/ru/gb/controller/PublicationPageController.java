@@ -43,6 +43,7 @@ public class PublicationPageController {
         if (publicationPage == null) return "not-found";
         model.addAttribute("publication", publicationPage);
         model.addAttribute("username", userHolder.getLogin());
+        model.addAttribute("userWin", userHolder);
         return "publication-page";
     }
 

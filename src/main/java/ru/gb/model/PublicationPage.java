@@ -18,8 +18,6 @@ public class PublicationPage {
     private String startPrice;
     private String priceNow;
     private String phoneHolder;
-//    private LocalDate datePublication;
-//    private LocalDate dateOfFinishTrade;
     private LocalDateTime datePublication;
     private LocalDateTime dateOfFinishTrade;
     private String descriptionPublication;

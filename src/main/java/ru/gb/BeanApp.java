@@ -80,7 +80,7 @@ public class BeanApp {
 
         myFirstLaptopPublication.setCategory(Category.LAPTOP);
         myFirstLaptopPublication.setStatusPublication(StatusPublication.ACTIVE);
-        myFirstLaptopPublication.setDateOfFinishTrade(LocalDateTime.of(2025, 2, 6, 16, 21));
+        myFirstLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().plusSeconds(100L));
         myFirstLaptopPublication.setDescriptionPublication("Продаю ноутбук HP");
         myFirstLaptopPublication.setPriceNow(100L);
         myFirstLaptopPublication.setCondition(Condition.USED);
@@ -90,7 +90,7 @@ public class BeanApp {
 
         myThirdLaptopPublication.setCategory(Category.LAPTOP);
         myThirdLaptopPublication.setStatusPublication(StatusPublication.SOLD);
-        myThirdLaptopPublication.setDateOfFinishTrade(LocalDateTime.of(2025, 2, 4, 10, 22));
+        myThirdLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(1L));
         myThirdLaptopPublication.setDescriptionPublication("Продам б/у ноутбук ASUS ROG");
         myThirdLaptopPublication.setPriceNow(28000L);
         myThirdLaptopPublication.setCondition(Condition.USED);
@@ -100,7 +100,7 @@ public class BeanApp {
 
         myFirstPhonePublication.setCategory(Category.PHONE);
         myFirstPhonePublication.setStatusPublication(StatusPublication.ACTIVE);
-        myFirstPhonePublication.setDateOfFinishTrade(LocalDateTime.of(2025, 2, 11, 14, 41));
+        myFirstPhonePublication.setDateOfFinishTrade(LocalDateTime.now().plusDays(2L));
         myFirstPhonePublication.setCondition(Condition.USED);
         myFirstPhonePublication.setPriceNow(780L);
         myFirstPhonePublication.setDescriptionPublication("Продаю телефон Samsung");
@@ -110,7 +110,7 @@ public class BeanApp {
 
         myFirstTelevisorPublication.setCategory(Category.TELEVISOR);
         myFirstTelevisorPublication.setStatusPublication(StatusPublication.ARCHIVE);
-        myFirstTelevisorPublication.setDateOfFinishTrade(LocalDateTime.of(2025, 1, 22, 4, 12));
+        myFirstTelevisorPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(3L));
         myFirstTelevisorPublication.setPriceNow(440L);
         myFirstTelevisorPublication.setUser(tanya);
         myFirstTelevisorPublication.setHolder(vanya);
@@ -120,7 +120,7 @@ public class BeanApp {
 
         mySecondTelevisorPublication.setCategory(Category.TELEVISOR);
         mySecondTelevisorPublication.setStatusPublication(StatusPublication.ACTIVE);
-        mySecondTelevisorPublication.setDateOfFinishTrade(LocalDateTime.of(2025, 2, 5, 17, 39));
+        mySecondTelevisorPublication.setDateOfFinishTrade(LocalDateTime.now().plusMinutes(30L));
         mySecondTelevisorPublication.setDescriptionPublication("Продаю телевизор TCL");
         mySecondTelevisorPublication.setCondition(Condition.USED);
         mySecondTelevisorPublication.setUser(pasha);
@@ -130,7 +130,7 @@ public class BeanApp {
 
         mySecondPhonePublication.setCategory(Category.PHONE);
         mySecondPhonePublication.setStatusPublication(StatusPublication.ACTIVE);
-        mySecondPhonePublication.setDateOfFinishTrade(LocalDateTime.of(2025, 2, 17, 15, 15));
+        mySecondPhonePublication.setDateOfFinishTrade(LocalDateTime.now().plusSeconds(40L).plusMinutes(1L));
         mySecondPhonePublication.setCondition(Condition.USED);
         mySecondPhonePublication.setPriceNow(12000L);
         mySecondPhonePublication.setUser(pasha);
@@ -140,7 +140,7 @@ public class BeanApp {
 
         mySecondLaptopPublication.setCategory(Category.LAPTOP);
         mySecondLaptopPublication.setStatusPublication(StatusPublication.SOLD);
-        mySecondLaptopPublication.setDateOfFinishTrade(LocalDateTime.of(2025, 2, 3, 23, 9));
+        mySecondLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(1L).minusHours(2L).minusMinutes(44L));
         mySecondLaptopPublication.setDescriptionPublication("Продаю ноутбук MSI");
         mySecondLaptopPublication.setCondition(Condition.USED);
         mySecondLaptopPublication.setUser(tanya);

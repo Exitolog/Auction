@@ -112,6 +112,14 @@
             <span th:text="${publication.priceNow}"></span>
         </div>
     </div>
+    <div>
+        <span th:if="${publication.statusPublication == 'Продано' && publication.user == username}">
+            <span> Свяжитесь с </span>
+            <span th:text="${publication.holder}"></span>
+            <span> по телефону </span>
+            <span th:text="${userWin.phoneNumber}"></span>
+        </span>
+    </div>
     <div class="publication-actions">
         <form th:if="${publication.statusPublication == 'Активные торги' && publication.holder != username}" th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
             <input type="number" name="newPrice" placeholder="Ваша ставка">

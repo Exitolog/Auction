@@ -3,6 +3,7 @@ package ru.gb.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.gb.entity.Publication;
 import ru.gb.entity.enums.StatusPublication;
 import ru.gb.repository.PublicationRepository;
@@ -34,7 +35,7 @@ public class PublicationPageService {
         nullUser.setPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
         nullUser.setConfirmPassword("$2a$12$mT1uu45eeoYNuAQoDCxQTuc29uI3qi50RFGwn22/65duAA0Ycust2");
         nullUser.setPhoneNumber("+79131951099");
-        userRepository.save(nullUser);
+        userRepository.saveAndFlush(nullUser);
     }
 
     public List<PublicationPage> findAllPublicationPage() {
@@ -72,7 +73,7 @@ public class PublicationPageService {
         }
         publication.setPriceNow(1L);
         publication.setHolder(holder);
-        publicationRepository.save(publication);
+        publicationRepository.saveAndFlush(publication);
         convertToPage(publication);
         log.info("Пользователь {} опубликовал публикацию {}", holder.getLogin(), publication.getId());
     }
@@ -90,6 +91,7 @@ public class PublicationPageService {
         if(publication.getHolder().equals(user)) {
             log.info("Пользователь {} пытается удалить публикацию {}", user.getLogin(), publication.getId());
             publicationRepository.delete(publication);
+            publicationRepository.flush();
         }
     }
 
