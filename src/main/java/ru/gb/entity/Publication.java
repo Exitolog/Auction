@@ -57,34 +57,34 @@ public class Publication {
     @Schema(description = "Описание к публикации")
     private String descriptionPublication;
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+//    @Override
+//    public boolean equals(Object object) {
+//        if (this == object) return true;
+//        if (object == null || getClass() != object.getClass()) return false;
+//
+//        Publication that = (Publication) object;
+//        return Objects.equals(id, that.id) && category == that.category && condition == that.condition && Objects.equals(datePublication, that.datePublication) && Objects.equals(holder, that.holder);
+//    }
 
-        Publication that = (Publication) object;
-        return Objects.equals(id, that.id) && category == that.category && condition == that.condition && Objects.equals(datePublication, that.datePublication) && Objects.equals(holder, that.holder);
-    }
+//    @Override
+//    public int hashCode() {
+//        int result = Objects.hashCode(category);
+//        result = 31 * result + Objects.hashCode(condition);
+//        result = 31 * result + Objects.hashCode(datePublication);
+//        result = 31 * result + Objects.hashCode(holder);
+//        return result;
+//    }
 
-    @Override
-    public int hashCode() {
-        int result = Objects.hashCode(category);
-        result = 31 * result + Objects.hashCode(condition);
-        result = 31 * result + Objects.hashCode(datePublication);
-        result = 31 * result + Objects.hashCode(holder);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Publication.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("statusPublication=" + statusPublication)
-                .add("category=" + category)
-                .add("condition=" + condition)
-                .add("user=" + user)
-                .add("holder=" + holder)
-                .add("descriptionPublication='" + descriptionPublication + "'")
-                .toString();
-    }
+//    @Override
+//    public String toString() {
+//        return new StringJoiner(", ", Publication.class.getSimpleName() + "[", "]")
+//                .add("id=" + id)
+//                .add("statusPublication=" + statusPublication)
+//                .add("category=" + category)
+//                .add("condition=" + condition)
+//                .add("user=" + user)
+//                .add("holder=" + holder)
+//                .add("descriptionPublication='" + descriptionPublication + "'")
+//                .toString();
+//    }
 }

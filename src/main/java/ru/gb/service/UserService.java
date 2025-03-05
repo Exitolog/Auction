@@ -9,6 +9,7 @@ import ru.gb.repository.RoleRepository;
 import ru.gb.repository.UserRepository;
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -28,7 +29,7 @@ public class UserService {
        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
        String cryptPassword = bCryptPasswordEncoder.encode(user.getPassword());
        user.setPassword(cryptPassword);
-       userRepository.save(user);
+       userRepository.saveAndFlush(user);
    }
 
 }
