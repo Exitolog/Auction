@@ -75,7 +75,7 @@
         <td><span th:text="${publication.condition}"></span></td>
         <td><span th:text="${publication.priceNow}"></span></td>
         <td><a th:href="@{/auction/user/{login}(login=${publication.holder})}"><span th:text="${publication.holder}"></span></a></td>
-        <td><span th:text="${publication.dateOfFinishTrade}"></span></td>
+        <td><span th:text="${#temporals.format(publication.dateOfFinishTrade, 'dd-MMMM-yyyy HH:mm')}" ></span></td>
         <td><span th:text="${publication.descriptionPublication}"></span></td>
     </tr>
     </tbody>
