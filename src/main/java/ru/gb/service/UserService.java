@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.gb.entity.User;
+import ru.gb.exception.UserExistException;
 import ru.gb.repository.RoleRepository;
 import ru.gb.repository.UserRepository;
 import java.util.List;
@@ -24,7 +25,7 @@ public class UserService {
 
    public void createUser(@NotNull User user){
        if(userRepository.findByLogin(user.getLogin()).isPresent())
-           throw new RuntimeException("Пользователь с логином " + user.getLogin() + " уже существует");
+           throw new UserExistException("Пользователь с логином " + user.getLogin() + " уже существует");
        user.setRoles(List.of(roleRepository.findById(2L).get()));
        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
        String cryptPassword = bCryptPasswordEncoder.encode(user.getPassword());

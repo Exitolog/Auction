@@ -1,11 +1,12 @@
 package ru.gb.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.gb.entity.Publication;
 import ru.gb.entity.enums.StatusPublication;
+import ru.gb.exception.NoValidUpPriceException;
+import ru.gb.exception.PublicationNotFoundException;
+import ru.gb.exception.UserNotFoundException;
 import ru.gb.repository.PublicationRepository;
 import ru.gb.model.PublicationPage;
 import ru.gb.entity.User;
@@ -19,9 +20,6 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class PublicationPageService {
-
-
-
 
     private final PublicationRepository publicationRepository;
     private final UserRepository userRepository;
@@ -49,22 +47,24 @@ public class PublicationPageService {
         return publicationRepository.findAll();
     }
 
+
+
     public User findUserByLogin(String login) {
         return userRepository.findByLogin(login)
-                .orElseThrow(() -> new RuntimeException("Пользователь c логином " + login + " не найден"));
+                .orElseThrow(() -> new UserNotFoundException("Пользователь c логином " + login + " не найден"));
     }
 
     public User findUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Пользователь c id " + id + " не найден"));
+                .orElseThrow(() -> new UserNotFoundException("Пользователь c id " + id + " не найден"));
     }
 
     public PublicationPage findPublicationPageById(Long id) {
-        return convertToPage(Objects.requireNonNull(publicationRepository.findById(id).orElse(null)));
+        return convertToPage(Objects.requireNonNull(publicationRepository.findById(id).orElseThrow(() -> new PublicationNotFoundException("Лота с идентификатором " + id + " не существует"))));
     }
 
     public Publication findPublication(Long id) {
-        return publicationRepository.findById(id).orElse(null);
+        return publicationRepository.findById(id).orElseThrow(() -> new PublicationNotFoundException("Лота с идентификатором " + id + " не существует"));
     }
 
     public void create(Publication publication, User holder) {
@@ -87,7 +87,7 @@ public class PublicationPageService {
     }
 
     public void delete(Long id, User user) {
-        Publication publication = publicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Лота с идентификатором " + id + " не существует"));
+        Publication publication = publicationRepository.findById(id).orElseThrow(() -> new PublicationNotFoundException("Лота с идентификатором " + id + " не существует"));
         if(publication.getHolder().equals(user)) {
             log.info("Пользователь {} пытается удалить публикацию {}", user.getLogin(), publication.getId());
             publicationRepository.delete(publication);
@@ -117,10 +117,10 @@ public class PublicationPageService {
     public void upPrice(Publication publication, Long newPrice, User user) {
         log.info("Пользователь {} пытается сделать ставку {} на публикацию {}", user.getLogin(), newPrice, publication.getId());
         if (publication.getPriceNow() >= newPrice) {
-            throw new RuntimeException("Новая ставка не может быть меньше, либо равна текущей");
+            throw new NoValidUpPriceException("Новая ставка не может быть меньше, либо равна текущей");
         }
         if(publication.getHolder().equals(user)) {
-            throw new RuntimeException("Владелец лота не может сделать ставку на свою публикацию");
+            throw new NoValidUpPriceException("Владелец лота не может сделать ставку на свою публикацию");
         }
         publication.setPriceNow(newPrice);
         publication.setUser(user);

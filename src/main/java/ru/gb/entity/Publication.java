@@ -75,16 +75,16 @@ public class Publication {
 //        return result;
 //    }
 
-//    @Override
-//    public String toString() {
-//        return new StringJoiner(", ", Publication.class.getSimpleName() + "[", "]")
-//                .add("id=" + id)
-//                .add("statusPublication=" + statusPublication)
-//                .add("category=" + category)
-//                .add("condition=" + condition)
-//                .add("user=" + user)
-//                .add("holder=" + holder)
-//                .add("descriptionPublication='" + descriptionPublication + "'")
-//                .toString();
-//    }
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Publication.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("statusPublication=" + statusPublication)
+                .add("category=" + category)
+                .add("condition=" + condition)
+                .add("user=" + user)
+                .add("holder=" + holder)
+                .add("descriptionPublication='" + descriptionPublication + "'")
+                .toString();
+    }
 }
