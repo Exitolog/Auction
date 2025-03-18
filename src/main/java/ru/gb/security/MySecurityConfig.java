@@ -20,6 +20,7 @@ public class MySecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                .authorizeHttpRequests(requests -> requests
                        .requestMatchers("/auction").permitAll()
+                       .requestMatchers("/static/**").permitAll()
                        .requestMatchers("/users/new").permitAll()
                        .requestMatchers("/users").hasAuthority("ADMIN")
                        .anyRequest().hasAuthority("USER")

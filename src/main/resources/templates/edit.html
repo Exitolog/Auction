@@ -3,115 +3,109 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script src="https://tailwindcss.com/docs/installation"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+<!--    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>-->
     <title>Изменения лота</title>
 </head>
-<body>
-<style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-}
+<body class="h-full">
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    <div class="min-h-full">
+        <nav class="bg-gray-800">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex h-16 items-center justify-between">
+                    <div class="flex items-center">
+                        <div>
+                            <img class="h-8 w-auto" th:src="@{/static/images/logo-auction.jpeg}" alt="" width="32" height="32">
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-10 flex items-baseline space-x-4">
+                                <a th:href="@{/auction}" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Главное меню</a>
+                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Мои публикации</a>
+                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Отзывы</a>
+                                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Поддержка</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        <main>
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+                    <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+                         aria-hidden="true">
+                        <div class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+                             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                        </div>
+                    </div>
+                    <div class="mx-auto max-w-2xl text-center">
+                        <h1 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl"></h1>
+                        <p class="mt-2 text-lg/8 text-gray-600">Внесите изменения</p>
+                    </div>
 
-.form-group {
-    margin-bottom: 20px;
-}
+                    <form action="#" th:method="POST" th:action="@{/auction/edit/{id}(id=${publication.id})}" th:object="${publication}">
+                        <input type="hidden" name="_method" value="POST">
 
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
-}
+                        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                            <div>
+                                <label for="category" class="block text-sm/6 font-semibold text-gray-900">Категория</label>
+                                <div class="mt-2.5">
+                                    <select th:field="*{category}" id="category"
+                                            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                        <option value="ANOTHER">Другое</option>
+                                        <option value="LAPTOP">Ноутбук</option>
+                                        <option value="PHONE">Телефон</option>
+                                        <option value="TELEVISOR">Телевизор</option>
+                                    </select>
+                                </div>
+                            </div>
 
-.form-group input[type="text"], .form-group input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 40px;
-    font-size: 16px;
-}
+                            <div>
+                                <label for="condition" class="block text-sm/6 font-semibold text-gray-900">Состояние</label>
+                                <div class="mt-2.5">
+                                    <select th:field="*{condition}" id="condition"
+                                            class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                        <option value="NEW">Новое</option>
+                                        <option value="USED">Б/У</option>
+                                        <option value="INCORRECT">Неисправно</option>
+                                    </select>
+                                </div>
+                            </div>
 
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 100px;
-    font-size: 16px;
-}
-.form-group select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 40px;
-    font-size: 16px;
-}
+                            <div>
+                                <label for="description" class="block text-sm/6 font-semibold text-gray-900">Описание
+                                    публикации</label>
+                                <div class="mt-2.5">
+                                    <input type="text" th:field="*{descriptionPublication}" id="description"
+                                           class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                </div>
+                            </div>
 
-input[type="submit"] {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-input[type="reset"] {
-            background-color: #ccc;
-            color: #666;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-input[type="submit"]:hover {
-    background-color: #3e8e41;
-}
-</style>
-<h1 align="center" style="color:SteelBlue">Внесите изменения по вашему лоту</h1>
-<form align="right" th:method="GET" th:action="@{/auction}">
-    <input type="submit" value="На главную страницу">
-</form>
-<form action="#"
-      th:method="POST"
-      th:action="@{/auction/edit/{id}(id=${publication.id})}"
-      th:object="${publication}">
-    <input type="hidden" name="_method" value="POST">
-    <p><label>Состояние:</label>
-    <select th:field="*{condition}">
-        <option value="NEW">Новое</option>
-        <option value="USED">Б/У</option>
-        <option value="INCORRECT">Неисправно</option>
-    </select>
-    <p><label>Категория:</label>
-        <select th:field="*{category}">
-            <option value="ANOTHER">Другое</option>-->
-            <option value="LAPTOP">Ноутбук</option>
-            <option value="PHONE">Телефон</option>
-            <option value="TELEVISOR">Телевизор</option>
-        </select>
-    <p><label>Описание:</label><input type="text" th:field="*{descriptionPublication}">
-    <p><input type="submit" value="Обновить лот">
-</form>
+                            <div>
+                                <label for="fileImage" class="block text-sm/6 font-semibold text-gray-900">Фото</label>
+                                <input type="file" id="fileImage" name="image" accept="image/jpeg, image/png"
+                                       class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"/>
+                                <p id="imageError" class="hidden text-red-600 text-sm mt-1">
+                                    Размер файла превышает 2МБ. Пожалуйста, загрузите другой файл.
+                                </p>
+                            </div>
+
+                            <div>
+                                <img th:src="@{images/auction-publication.png}" id="thumbnail"
+                                     class="h-24 w-auto border p-1 rounded-md" alt="Ваше фото">
+                            </div>
+
+                            <div class="mt-10">
+                                <input  type="submit" class="bg-green-600 font-medium hover:bg-green-700 px-3 py-2 rounded-md text-sm text-white" value="Обновить лот"/>
+                                <input type="reset" class="bg-blue-600 font-medium hover:bg-green-700 px-3 py-2 rounded-md text-sm text-white" value="Ввести данные заново"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
