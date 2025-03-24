@@ -66,9 +66,9 @@ public class Publication {
 
     public String getImagesPath(){
         if(id == null || images == null) {
-            return "images/auction-publication.png";
+            return "/static/images/default-publication-image.png";
         }
-        return "publication-images"+this.id+"/"+this.images;
+        return "/publication-images/"+this.holder.getLogin()+"/"+this.id+"/"+this.images;
     }
 
 }

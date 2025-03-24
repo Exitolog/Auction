@@ -67,7 +67,7 @@ public class BeanApp {
         userRepository.save(tanya);
 
         User pasha = new User();
-        pasha.setLogin("pashaa222");
+        pasha.setLogin("pasha222");
 //      pasha.setPassword("pasha_password");
         pasha.setPassword("$2a$12$mIRZujcPyOFf39QE8zi9Ce6LjntRy6QO00gYUaHF6r2qFoJhQZnMS");
         pasha.setConfirmPassword("$2a$12$mIRZujcPyOFf39QE8zi9Ce6LjntRy6QO00gYUaHF6r2qFoJhQZnMS");
@@ -80,72 +80,81 @@ public class BeanApp {
 
         myFirstLaptopPublication.setCategory(Category.LAPTOP);
         myFirstLaptopPublication.setStatusPublication(StatusPublication.ACTIVE);
-        myFirstLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().plusSeconds(100L));
-        myFirstLaptopPublication.setDescriptionPublication("Продаю ноутбук HP");
-        myFirstLaptopPublication.setPriceNow(100L);
         myFirstLaptopPublication.setCondition(Condition.USED);
+        myFirstLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().plusSeconds(100L));
+        myFirstLaptopPublication.setPriceNow(100L);
+        myFirstLaptopPublication.setDescriptionPublication("Продаю ноутбук HP");
+        myFirstLaptopPublication.setImages("5c596ae102a5580cad5a6b84.jpg");
         myFirstLaptopPublication.setUser(vanya);
         myFirstLaptopPublication.setHolder(pasha);
         publicationRepository.save(myFirstLaptopPublication);
 
+        mySecondLaptopPublication.setCategory(Category.LAPTOP);
+        mySecondLaptopPublication.setStatusPublication(StatusPublication.SOLD);
+        mySecondLaptopPublication.setCondition(Condition.USED);
+        mySecondLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(1L).minusHours(2L).minusMinutes(44L));
+        mySecondLaptopPublication.setPriceNow(2900L);
+        mySecondLaptopPublication.setDescriptionPublication("Продаю ноутбук MSI");
+        mySecondLaptopPublication.setImages("5d231ca62138bb691022b3d4.jpg");
+        mySecondLaptopPublication.setUser(tanya);
+        mySecondLaptopPublication.setHolder(pasha);
+        publicationRepository.save(mySecondLaptopPublication);
+
         myThirdLaptopPublication.setCategory(Category.LAPTOP);
         myThirdLaptopPublication.setStatusPublication(StatusPublication.SOLD);
-        myThirdLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(1L));
-        myThirdLaptopPublication.setDescriptionPublication("Продам б/у ноутбук ASUS ROG");
-        myThirdLaptopPublication.setPriceNow(28000L);
         myThirdLaptopPublication.setCondition(Condition.USED);
+        myThirdLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(1L));
+        myThirdLaptopPublication.setPriceNow(28000L);
+        myThirdLaptopPublication.setDescriptionPublication("Продам б/у ноутбук ASUS ROG");
+        myThirdLaptopPublication.setImages("Ml7tsQdBKsg.jpg");
         myThirdLaptopPublication.setUser(vanya);
         myThirdLaptopPublication.setHolder(tanya);
         publicationRepository.save(myThirdLaptopPublication);
 
         myFirstPhonePublication.setCategory(Category.PHONE);
         myFirstPhonePublication.setStatusPublication(StatusPublication.ACTIVE);
-        myFirstPhonePublication.setDateOfFinishTrade(LocalDateTime.now().plusDays(2L));
         myFirstPhonePublication.setCondition(Condition.USED);
+        myFirstPhonePublication.setDateOfFinishTrade(LocalDateTime.now().plusDays(2L));
         myFirstPhonePublication.setPriceNow(780L);
         myFirstPhonePublication.setDescriptionPublication("Продаю телефон Samsung");
+        myFirstPhonePublication.setImages("5e3672d0aaab282cd84853d2.jpg");
         myFirstPhonePublication.setUser(vanya);
         myFirstPhonePublication.setHolder(tanya);
         publicationRepository.save(myFirstPhonePublication);
 
+        mySecondPhonePublication.setCategory(Category.PHONE);
+        mySecondPhonePublication.setStatusPublication(StatusPublication.ACTIVE);
+        mySecondPhonePublication.setCondition(Condition.USED);
+        mySecondPhonePublication.setDateOfFinishTrade(LocalDateTime.now().plusSeconds(40L).plusMinutes(1L));
+        mySecondPhonePublication.setPriceNow(12000L);
+        mySecondPhonePublication.setDescriptionPublication("Продаю телефон Iphone 6");
+        mySecondPhonePublication.setImages("5ddbbd3ec6ab9e2c2b7101b6.jpg");
+        mySecondPhonePublication.setUser(pasha);
+        mySecondPhonePublication.setHolder(tanya);
+        publicationRepository.save(mySecondPhonePublication);
+
         myFirstTelevisorPublication.setCategory(Category.TELEVISOR);
         myFirstTelevisorPublication.setStatusPublication(StatusPublication.ARCHIVE);
+        myFirstTelevisorPublication.setCondition(Condition.INCORRECT);
         myFirstTelevisorPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(3L));
         myFirstTelevisorPublication.setPriceNow(440L);
+        myFirstTelevisorPublication.setDescriptionPublication("Продаю телевизор LG (не работает экран)");
+        myFirstTelevisorPublication.setImages("5c319253d138b36bed5ffa22.jpg");
         myFirstTelevisorPublication.setUser(tanya);
         myFirstTelevisorPublication.setHolder(vanya);
-        myFirstTelevisorPublication.setDescriptionPublication("Продаю телевизор LG (не работает экран)");
-        myFirstTelevisorPublication.setCondition(Condition.INCORRECT);
         publicationRepository.save(myFirstTelevisorPublication);
 
         mySecondTelevisorPublication.setCategory(Category.TELEVISOR);
         mySecondTelevisorPublication.setStatusPublication(StatusPublication.ACTIVE);
-        mySecondTelevisorPublication.setDateOfFinishTrade(LocalDateTime.now().plusMinutes(30L));
-        mySecondTelevisorPublication.setDescriptionPublication("Продаю телевизор TCL");
         mySecondTelevisorPublication.setCondition(Condition.USED);
+        mySecondTelevisorPublication.setDateOfFinishTrade(LocalDateTime.now().plusMinutes(30L));
+        mySecondTelevisorPublication.setPriceNow(3000L);
+        mySecondTelevisorPublication.setDescriptionPublication("Продаю телевизор TCL");
+        mySecondTelevisorPublication.setImages("NsXRMvpkpSk.jpg");
         mySecondTelevisorPublication.setUser(pasha);
         mySecondTelevisorPublication.setHolder(vanya);
-        mySecondTelevisorPublication.setPriceNow(3000L);
         publicationRepository.save(mySecondTelevisorPublication);
 
-        mySecondPhonePublication.setCategory(Category.PHONE);
-        mySecondPhonePublication.setStatusPublication(StatusPublication.ACTIVE);
-        mySecondPhonePublication.setDateOfFinishTrade(LocalDateTime.now().plusSeconds(40L).plusMinutes(1L));
-        mySecondPhonePublication.setCondition(Condition.USED);
-        mySecondPhonePublication.setPriceNow(12000L);
-        mySecondPhonePublication.setUser(pasha);
-        mySecondPhonePublication.setHolder(tanya);
-        mySecondPhonePublication.setDescriptionPublication("Продаю телефон Iphone 6");
-        publicationRepository.save(mySecondPhonePublication);
 
-        mySecondLaptopPublication.setCategory(Category.LAPTOP);
-        mySecondLaptopPublication.setStatusPublication(StatusPublication.SOLD);
-        mySecondLaptopPublication.setDateOfFinishTrade(LocalDateTime.now().minusDays(1L).minusHours(2L).minusMinutes(44L));
-        mySecondLaptopPublication.setDescriptionPublication("Продаю ноутбук MSI");
-        mySecondLaptopPublication.setCondition(Condition.USED);
-        mySecondLaptopPublication.setUser(tanya);
-        mySecondLaptopPublication.setHolder(pasha);
-        mySecondLaptopPublication.setPriceNow(2900L);
-        publicationRepository.save(mySecondLaptopPublication);
     }
 }

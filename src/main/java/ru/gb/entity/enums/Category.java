@@ -6,15 +6,16 @@ import ru.gb.entity.Laptop;
 import ru.gb.entity.Phone;
 import ru.gb.entity.Televisor;
 
+import java.util.StringJoiner;
+
 @Getter
 public enum Category {
 
-    LAPTOP(Laptop.class), PHONE(Phone.class), TELEVISOR(Televisor.class), ANOTHER(Another.class);
+    LAPTOP("Ноутбук"), PHONE("Телефон"), TELEVISOR("Телевизор"), ANOTHER("Другое");
 
-    private final Class category;
+    private final String categoryName;
 
-    Category(Class category) {
-        this.category = category;
+    Category(String categoryName) {
+        this.categoryName = categoryName;
     }
-
 }

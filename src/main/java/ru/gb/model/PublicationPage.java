@@ -24,4 +24,6 @@ public class PublicationPage {
     private String user;
     private String loginUser;
     private String holder;
+    private String images;
+    private String imagesPath;
 }

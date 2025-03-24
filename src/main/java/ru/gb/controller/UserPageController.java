@@ -32,8 +32,8 @@ public class UserPageController {
 
 
     @GetMapping("/new")
-    public String newUser(User user){
-//        model.addAttribute("user", new User());
+    public String newUser( Model model, User user){
+        model.addAttribute("user", new User());
         return "create-user";
     }
 

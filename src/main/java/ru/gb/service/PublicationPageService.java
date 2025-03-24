@@ -97,11 +97,11 @@ public class PublicationPageService {
     // почитать про маппер
     private PublicationPage convertToPage(Publication publication) {
         PublicationPage publicationPage = new PublicationPage();
-        publicationPage.setCategory(publication.getCategory().name());
+        publicationPage.setCategory(publication.getCategory().getCategoryName());
         publicationPage.setId(String.valueOf(publication.getId()));
         publicationPage.setDatePublication(publication.getDatePublication());
         publicationPage.setStatusPublication(publication.getStatusPublication().getStatusName());
-        publicationPage.setCondition(String.valueOf(publication.getCondition()));
+        publicationPage.setCondition(String.valueOf(publication.getCondition().getConditionName()));
         publicationPage.setStartPrice(String.valueOf(publication.getStartPrice()));
         publicationPage.setPriceNow(String.valueOf(publication.getPriceNow()));
         publicationPage.setUser(publication.getUser().getLogin());
@@ -110,6 +110,9 @@ public class PublicationPageService {
         publicationPage.setLoginUser(publication.getUser().getLogin());
         publicationPage.setDateOfFinishTrade(publication.getDateOfFinishTrade());
         publicationPage.setDescriptionPublication(publication.getDescriptionPublication());
+        publicationPage.setImages(publication.getImages());
+        publicationPage.setImagesPath(publication.getImagesPath());
+
         return publicationPage;
     }
 

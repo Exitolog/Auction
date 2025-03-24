@@ -19,8 +19,10 @@ public class MySecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                .authorizeHttpRequests(requests -> requests
+//                               .requestMatchers("/**").permitAll()
                        .requestMatchers("/auction").permitAll()
                        .requestMatchers("/static/**").permitAll()
+                       .requestMatchers("/publication-images/**").permitAll()
                        .requestMatchers("/users/new").permitAll()
                        .requestMatchers("/users").hasAuthority("ADMIN")
                        .anyRequest().hasAuthority("USER")

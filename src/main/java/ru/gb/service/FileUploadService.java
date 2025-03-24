@@ -13,6 +13,7 @@ public class FileUploadService {
 
     public static void uploadFile(String uploadDir, String fileName, MultipartFile uploadFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
+        System.out.println(uploadPath);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }

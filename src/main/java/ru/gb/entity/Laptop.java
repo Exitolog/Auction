@@ -25,5 +25,4 @@ public class Laptop {
     @Schema(description = "Описание ноутбука")
     private String descriptionLaptop;
 
-
 }

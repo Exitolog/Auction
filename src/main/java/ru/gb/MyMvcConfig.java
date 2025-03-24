@@ -10,22 +10,28 @@ import java.nio.file.Paths;
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
 
-    @Override
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/static/**")
+//                .addResourceLocations("classpath:/static/");
+//    }
+
+        @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String location = "publication-images";
+        Path publicationImagesDir = Paths.get(location);
+
+        String publicationImagesPath = publicationImagesDir.toFile().getAbsolutePath();
+
+            System.out.println(publicationImagesPath);
+
+            registry.addResourceHandler("/" +location + "/**")
+                .addResourceLocations("file:"+publicationImagesPath+"/");
+
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
-    }
 
-    //    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        String location = "publication-images";
-//        Path publicationImagesDir = Paths.get(location);
-//
-//        String publicationImagesPath = publicationImagesDir.toFile().getAbsolutePath();
-//
-//        registry.addResourceHandler("/" +location + "/**")
-//                .addResourceLocations("file:"+publicationImagesPath+"/");
-//    }
+    }
 
 }
 

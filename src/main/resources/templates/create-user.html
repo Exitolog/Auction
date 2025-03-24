@@ -1,101 +1,98 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://tailwindcss.com/docs/installation"></script>
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <head>
-    <style>
-        body {
-font-family: Arial, sans-serif;
-background-color: #f8f8f8;
-}
-
-.container {
-max-width: 400px;
-margin: 0 auto;
-padding: 20px;
-background-color: #fff;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-h1 {
-text-align: center;
-margin-bottom: 20px;
-}
-
-form {
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-label {
-font-weight: bold;
-margin-bottom: 10px;
-}
-input[type="text"], input[type="password"] {
-width: 100%;
-padding: 10px;
-margin-bottom: 20px;
-border: 1px solid #ccc;
-border-radius: 5px;
-}
-  input[type="submit"] {
-        background-color: #4CAF50;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        input[type="reset"] {
-         background-color: #007bff;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        text-align: right;
-        }
-.error {
-color: red;
-font-size: 14px;
-margin-bottom: 10px;
-}
-    </style>
     <meta charset="UTF-8">
     <title>Создание нового пользователя</title>
 </head>
-<body>
-<h1 align="center" style="color:SteelBlue">Введите информацию по новому пользователю</h1>
-<form action="#" th:action="@{/users/new}" th:object="${user}" method="POST">
+<body class="h-full">
+
+<div class="min-h-full">
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center">
+                    <div>
+                        <img class="h-8 w-auto" th:src="@{/static/images/logo-auction.jpeg}" alt="" width="32" height="32">
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a th:href="@{/auction}" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Главное меню</a>
+                            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Мои публикации</a>
+                            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Отзывы</a>
+                            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Поддержка</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Введите информацию по новому пользователю</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+                <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+                     aria-hidden="true">
+                    <div class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+                         style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                    </div>
+                </div>
+
+        <form action="#" th:action="@{/users/new}" th:object="${user}" method="POST">
+
     <div>
-        <label for="login">Логин</label> <input type="text" th:field="*{login}"
-                                                id="login" placeholder="от 6 до 16 символов"/>
-        <p th:if="${#fields.hasErrors('login')}"
-           th:class="${#fields.hasErrors('login')}? error">Логин должен быть длиной больше 6 символов</p>
+        <label for="login" class="block text-sm/6 font-semibold text-gray-900">Логин</label>
+        <input  type="text" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                th:field="*{login}" id="login" placeholder="от 6 до 16 символов"/>
+        <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}"
+             class="text-red-600 text-sm mt-1">Логин должен быть длиной больше 6 символов</div>
     </div>
+
     <div>
-        <label for="password">Пароль</label> <input type="password" th:field="*{password}"
-                                                    id="password" placeholder="минимум 8 символов">
-        <p th:if="${#fields.hasErrors('password')}"
-           th:class="${#fields.hasErrors('password')}? error">Проверьте корректность ввода</p>
+        <label for="password" class="block text-sm/6 font-semibold text-gray-900">Пароль</label>
+        <input type="password" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+               th:field="*{password}" id="password" placeholder="от 8 символов"/>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+             class="text-red-600 text-sm mt-1">Проверьте корректность ввода</div>
     </div>
+
     <div>
-        <label for="confirmPassword">Повторите пароль</label> <input type="password" th:field="*{confirmPassword}"
-                                                                     id="confirmPassword"
-                                                                     placeholder="повторите пароль">
-        <p th:if="${#fields.hasErrors('confirmPassword')}"
-           th:class="${#fields.hasErrors('confirmPassword')}? error"></p>
+        <label for="confirmPassword" class="block text-sm/6 font-semibold text-gray-900">Повторите пароль</label>
+        <input type="password" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+               th:field="*{confirmPassword}" id="confirmPassword" placeholder="от 8 символов"/>
+        <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+             class="text-red-600 text-sm mt-1">Проверьте корректность ввода</div>
     </div>
-    <div>
-        <label for="phoneNumber">Номер телефона</label> <input type="text" th:field="*{phoneNumber}"
-                                                               id="phoneNumber" placeholder="+7, либо 8"/>
-        <p th:if="${#fields.hasErrors('phoneNumber')}"
-           th:errorclass="error" th:errors="*{phoneNumber}"></p>
+
+     <div>
+         <label for="phoneNumber" class="block text-sm/6 font-semibold text-gray-900">Номер телефона</label>
+         <input type="number" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                th:field="*{phoneNumber}" id="phoneNumber" placeholder="+7 либо 8"/>
+         <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+              class="text-red-600 text-sm mt-1">Проверьте корректность ввода</div>
+     </div>
+
+    <div th:if="${#fields.hasErrors('global')}"
+         th:each="err : ${#fields.errors('global')}" th:text="${err}"
+         class="text-red-600 text-sm mt-1">
     </div>
-    <div th:if="${#fields.hasErrors('global')}">
-        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"></p>
+
+    <div class="mt-10">
+        <input type="submit" class="bg-green-600 font-medium hover:bg-green-700 px-3 py-2 rounded-md text-sm text-white" value="Создать пользователя"/>
+        <input type="reset" class="bg-blue-600 font-medium hover:bg-green-700 px-3 py-2 rounded-md text-sm text-white" value="Ввести данные заново"/></p>
     </div>
-    <p><input type="submit" value="Создать пользователя"/> <input type="reset" value="Ввести данные заново"/></p>
-</form>
+
+        </form>
+            </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>

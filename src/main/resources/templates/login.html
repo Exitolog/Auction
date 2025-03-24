@@ -1,134 +1,104 @@
 <!DOCTYPE html>
-<html
-        lang="en"
-        xmlns:th="http://www.thymeleaf.org"
-        class="h-full bg-white">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://tailwindcss.com/docs/installation"></script>
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <head>
-    <title>Sign in to your account</title>
+    <meta charset="UTF-8">
+    <title>Авторизация пользователя</title>
 </head>
 <body class="h-full">
-<style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-}
 
-.container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-      input[type="submit"] {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-      input[value="Зарегистрироваться"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            }
-.error {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-</style>
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Для продолжения необходима авторизация</h1>
-    </div>
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-
-        <div th:if="${param.error}" class="rounded-md bg-red-50 p-4">
-            <div class="flex">
-                <div class="ml-3">
-                    <h3 style="color:red" class="text-sm font-medium text-red-800">Неправильно введен логин или пароль</h3>
-                </div>
-            </div>
-        </div>
-
-        <div th:if="${param.logout}" class="rounded-md bg-green-50 p-4">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <p class="text-sm font-medium text-green-800">You have been Successfully logged out</p>
-                </div>
-                <div class="ml-auto pl-3">
-                    <div class="-mx-1.5 -my-1.5">
-                        <button type="button" class="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">
-                            <span class="sr-only">Dismiss</span>
-                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                            </svg>
-                        </button>
+<div class="min-h-full">
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center">
+                    <div>
+                        <img class="h-8 w-auto" th:src="@{/static/images/logo-auction.jpeg}" alt="" width="32"
+                             height="32">
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a th:href="@{/auction}"
+                               class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                               aria-current="page">Главное меню</a>
+                            <a href="#"
+                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Мои
+                                публикации</a>
+                            <a href="#"
+                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Отзывы</a>
+                            <a href="#"
+                               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Поддержка</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </nav>
 
-        <form class="space-y-6" th:action="@{/login}" method="POST">
-            <div>
-                <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Логин</label>
-                <div class="mt-2">
-                    <input id="username" name="username" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+    <header>
+        <div class="mx-auto text-center max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Введите данные для авторизации</h1>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <div class="isolate bg-white px-6 py-8 sm:py-14 lg:px-8">
+                    <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+                         aria-hidden="true">
+                        <div class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+                             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                        </div>
+                    </div>
+
+                    <form th:action="@{/login}" method="POST" class="max-w-md mx-auto">
+                        <div class="flex justify-between">
+                            <div class="w-full">
+                                <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Логин</label>
+                                <div class="mt-2">
+                                    <input id="username" name="username" type="text" autocomplete="login"
+                                           class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center mt-4">
+                            <div class="w-full">
+                                <div class="flex items-center justify-between">
+                                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900 text-center">Пароль</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input id="password" name="password" type="password" autocomplete="current-password"
+                                           class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 justify-center mt-4">
+                            <div class="w-full">
+                                <div class="flex justify-between items-center">
+                                    <a href="#" class="rounded-md px-6 py-3 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Забыли пароль?</a>
+                                    <input type="submit" class="bg-green-600 font-medium hover:bg-green-700 px-1 py-2 rounded-md text-sm text-white" value="Войти">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form th:action="@{/users/new}" method="GET" class="max-w-md mx-auto">
+                        <div class="flex justify-center mt-4">
+                            <div class="w-full">
+                                <input type="submit" th:href="@{/users/new}" value="Зарегистрироваться"
+                                       class="w-full bg-blue-600 font-medium hover:bg-blue-700 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div>
-                <div class="flex items-center justify-between">
-                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Пароль</label>
-                </div>
-                <div class="mt-2">
-                    <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-            </div>
-
-            <div>
-                <input type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"value="Войти">
-            </div>
-        </form>
-        <p></p>
-        <form th:method="GET" th:action="@{/users/new}">
-            <input type="submit" value="Зарегистрироваться">
-        </form>
-    </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>

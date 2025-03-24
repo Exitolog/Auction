@@ -59,8 +59,8 @@
                 <thead class="bg-gray-800 text-white uppercase">
                     <tr>
                 <th class="px-6 py-3 text-center">Статус публикации</th>
-                <th class="px-6 py-3 text-center">Идентификатор лота</th>
-<!--                <th class="px-6 py-3 text-center">Фото</th>-->
+                <th class="px-6 py-3 text-center">Фото</th>
+                <th class="px-6 py-3 text-center">Лот №</th>
                 <th class="px-6 py-3 text-center">Категория</th>
                 <th class="px-6 py-3 text-center">Состояние</th>
                 <th class="px-6 py-3 text-center">Текущая ставка</th>
@@ -73,12 +73,13 @@
                 <tbody>
                     <tr class="bg-white border-b"  th:each="publication : ${publications}">
                         <td class="border px-6 py-4 text-center" th:text="${publication.statusPublication}"></td>
+                        <td class="border px-1 py-1 text-center">
+                            <img th:src="@{${publication.imagesPath}}" id="thumbnail" class="h-28 w-auto border p-1 rounded-md" alt="Фото лота">
+                        </td>
                         <td class="border px-6 py-4 text-center">
                             <a th:href="@{/auction/{id}(id=${publication.id})}" th:text="${publication.id}"></a>
                         </td>
-<!--                        <td class="border px-6 py-4 text-center">-->
-<!--                            <img th:src="@{${publication.imagesPath}}" id="thumbnail" class="h-16 w-auto border p-1 rounded-md" alt="Фото лота">-->
-<!--                        </td>-->
+
                         <td class="border px-6 py-4 text-center" th:text="${publication.category}"></td>
                         <td class="border px-6 py-4 text-center" th:text="${publication.condition}"></td>
                         <td class="border px-6 py-4 text-center" th:text="${publication.priceNow}"></td>

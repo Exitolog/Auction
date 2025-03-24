@@ -79,17 +79,23 @@ public class PublicationPageController {
     @PostMapping("/edit/{id}")
     public String updatePublication(@AuthenticationPrincipal UserDetails currentUser,
                                     @ModelAttribute Publication publication,
-                                    @PathVariable("id") Long id){
-        if(publicationPageService.findPublication(id).getHolder().equals(publicationPageService.findUserByLogin(currentUser.getUsername())))
+                                    @PathVariable("id") Long id,
+                                    RedirectAttributes redirectAttributes) {
+        if(publicationPageService.findPublication(id).getHolder().equals(publicationPageService.findUserByLogin(currentUser.getUsername()))) {
             publicationPageService.update(id, publication);
+            redirectAttributes.addFlashAttribute("message", "Ваш лот " + id + " успешно обновлен!");
+        }
         return "redirect:/auction";
     }
 
 
     //Запрос на удаление publication от владельца(с проверкой)
     @PostMapping("/delete")
-    public String deletePublication(@AuthenticationPrincipal UserDetails currentUser, @RequestParam("id") Long id) {
+    public String deletePublication(@AuthenticationPrincipal UserDetails currentUser,
+                                    @RequestParam("id") Long id,
+                                    RedirectAttributes redirectAttributes) {
         publicationPageService.delete(id, publicationPageService.findUserByLogin(currentUser.getUsername()));
+        redirectAttributes.addFlashAttribute("message", "Ваш лот " + id + " успешно удален!");
         return "redirect:/auction";
     }
 
@@ -99,6 +105,7 @@ public class PublicationPageController {
                                     @ModelAttribute("publication") Publication publication,
                                     RedirectAttributes redirectAttributes,
                                     @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
         if(!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             publication.setImages(fileName);
@@ -109,13 +116,17 @@ public class PublicationPageController {
             FileUploadService.uploadFile(uploadDir, fileName, multipartFile);
 
         } else publicationPageService.create(publication, publicationPageService.findUserByLogin(currentUser.getUsername()));
-        redirectAttributes.addFlashAttribute("message", "Ваш лот опубликован!");
+        redirectAttributes.addFlashAttribute("message", "Ваш лот  " + publication.getId() + " успешно опубликован!");
         return "redirect:/auction";
     }
 
     //Запрос на обновление цены лота для пользователей(с проверкой)
     @PostMapping("/{id}")
-    public String updatePrice(@PathVariable("id") Long id, @ModelAttribute("newPrice") @Valid Long newPrice, BindingResult result, @AuthenticationPrincipal UserDetails currentUser) {
+    public String updatePrice(@PathVariable("id") Long id,
+                              @ModelAttribute("newPrice") @Valid Long newPrice,
+                              BindingResult result,
+                              @AuthenticationPrincipal UserDetails currentUser) {
+
         String newPriceErr = publicationValidationService
                 .validNewPrice(publicationPageService.findPublication(id), newPrice);
         if (!newPriceErr.isEmpty()) {

@@ -1,5 +1,8 @@
 package ru.gb.entity.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Condition {
 
     NEW("Новый"), USED("Б/У"), INCORRECT("Неисправно");
@@ -10,7 +13,4 @@ public enum Condition {
         this.conditionName = conditionName;
     }
 
-    public String getConditionName() {
-        return conditionName;
-    }
 }
