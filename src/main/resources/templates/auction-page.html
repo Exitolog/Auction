@@ -8,7 +8,6 @@
     <title>Home / Auction Page</title>
     <script src="https://tailwindcss.com/docs/installation"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-<!--    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>-->
     <style type="text/tailwindcss">
         @theme {
           --color-clifford: #da373d;
@@ -19,7 +18,7 @@
 
 <div class="h-full">
 <nav class="bg-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                     <div>
@@ -39,14 +38,14 @@
 </nav>
 
     <header class="bg-white shadow">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-9xl px-4 py-6 sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">Список всех публикаций</h1>
         </div>
     </header>
 
     <main>
 
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-9xl px-4 py-6 sm:px-6 lg:px-8">
 
             <div th:if="${message}"  class="bg-green-200 border border-green-400 border-solid mb-5 p-2 rounded-md text-green-900">
                 <p th:text="${message}"></p>
@@ -55,10 +54,9 @@
             <a th:href="@{'/auction/new'}" class="bg-blue-600 font-medium px-3 py-2 rounded-md text-sm text-white inline-block mb-5 hover:bg-blue-700">Опубликовать новый лот</a>
 
             <table class="table-auto w-full">
-
                 <thead class="bg-gray-800 text-white uppercase">
                     <tr>
-                <th class="px-6 py-3 text-center">Статус публикации</th>
+                <th class="px-6 py-3 text-center">Статус</th>
                 <th class="px-6 py-3 text-center">Фото</th>
                 <th class="px-6 py-3 text-center">Лот №</th>
                 <th class="px-6 py-3 text-center">Категория</th>
@@ -66,7 +64,7 @@
                 <th class="px-6 py-3 text-center">Текущая ставка</th>
                 <th class="px-6 py-3 text-center">Лот выставлен</th>
                 <th class="px-6 py-3 text-center">Дата окончания торгов</th>
-                <th class="px-6 py-3 text-center">Описание лота</th>
+                <th class="px-6 py-3 text-center">Описание</th>
                     </tr>
                 </thead>
 
