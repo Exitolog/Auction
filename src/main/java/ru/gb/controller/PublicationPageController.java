@@ -20,6 +20,7 @@ import ru.gb.entity.User;
 import ru.gb.service.PublicationValidationService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -57,6 +58,9 @@ public class PublicationPageController {
     @GetMapping("/new")
     public String newPublication(Model model) {
         model.addAttribute("publication", new Publication());
+        model.addAttribute("threeDays", LocalDateTime.now().plusDays(3));
+        model.addAttribute("fiveDays", LocalDateTime.now().plusDays(5));
+        model.addAttribute("sevenDays", LocalDateTime.now().plusDays(7));
         return "create-publication";
     }
 
@@ -104,6 +108,7 @@ public class PublicationPageController {
     public String createPublication(@AuthenticationPrincipal UserDetails currentUser,
                                     @ModelAttribute("publication") Publication publication,
                                     RedirectAttributes redirectAttributes,
+                                    BindingResult result,
                                     @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         if(!multipartFile.isEmpty()) {
@@ -111,7 +116,6 @@ public class PublicationPageController {
             publication.setImages(fileName);
 
             publicationPageService.create(publication, publicationPageService.findUserByLogin(currentUser.getUsername()));
-
             String uploadDir = "publication-images/"+currentUser.getUsername()+"/"+publication.getId();
             FileUploadService.uploadFile(uploadDir, fileName, multipartFile);
 

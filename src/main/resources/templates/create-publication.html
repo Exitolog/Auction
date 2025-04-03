@@ -78,12 +78,25 @@
 
                         <div>
                             <label for="dateOfFinish" class="block text-sm/6 font-semibold text-gray-900">Дата окончания
-                                торгов</label>
+                                торгов через</label>
                             <div class="mt-2.5">
-                                <input type="datetime-local" th:field="*{dateOfFinishTrade}" id="dateOfFinish"
+                                <select th:field="*{dateOfFinishTrade}" id="dateOfFinish"
                                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                                    <option th:value="${threeDays}">3 дня </option>
+                                    <option th:value="${fiveDays}">5 дней</option>
+                                    <option th:value="${sevenDays}">7 дней</option>
+                                </select>
                             </div>
                         </div>
+
+<!--                        <div>-->
+<!--                            <label for="dateOfFinish" class="block text-sm/6 font-semibold text-gray-900">Дата окончания-->
+<!--                                торгов</label>-->
+<!--                            <div class="mt-2.5">-->
+<!--                                <input type="datetime-local" th:field="*{dateOfFinishTrade}" id="dateOfFinish"-->
+<!--                                       class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div>
                             <label for="description" class="block text-sm/6 font-semibold text-gray-900">Описание публикации</label>
