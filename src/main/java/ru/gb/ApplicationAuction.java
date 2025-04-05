@@ -19,17 +19,17 @@ public class ApplicationAuction {
         PublicationPageService publicationPageService = ctx.getBean(PublicationPageService.class);
         BeanApp beanApp = ctx.getBean(BeanApp.class);
 
-//        while (true) {
-//            try {
-//                Thread.sleep(1000 * 5);
-//                publicationPageService
-//                        .findAllPublication()
-//                        .forEach(publicationPageService::checkFinishTrade);
-//                log.info("Прошла валидация даты окончания торгов в {}", LocalDateTime.now());
-//                log.info("==================================");
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//        }
+        while (true) {
+            try {
+                Thread.sleep(1000 * 5);
+                publicationPageService
+                        .findAllPublication()
+                        .forEach(publicationPageService::checkFinishTrade);
+                log.info("Прошла валидация даты окончания торгов в {}", LocalDateTime.now());
+                log.info("==================================");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }
