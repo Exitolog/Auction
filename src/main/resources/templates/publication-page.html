@@ -1,143 +1,117 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Publication page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .publication-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .publication-info div {
-            margin: 10px;
-        }
-        .publication-info label {
-            font-weight: bold;
-        }
-        .publication-actions {
-            text-align: center;
-            margin-top: 20px;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        input[type="reset"] {
-            background-color: #ccc;
-            color: #666;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        input[value="Изменить лот"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            }
-    </style>
+    <script src="https://tailwindcss.com/docs/installation"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Страница лота</title>
 </head>
-<body>
-<div class="container">
-    <h1>Добро пожаловать на лот № <span th:text="${publication.id}"></span></h1>
-    <form align="right" th:method="GET" th:action="@{/auction}">
-        <input type="submit" value="На главную страницу">
-    </form>
-    <div class="publication-info">
-        <div>
-            <label>Статус публикации:</label>
-            <span th:text="${publication.statusPublication}"></span>
+<body class="h-full">
+
+<div class="min-h-full">
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center">
+                    <div>
+                        <img class="h-8 w-auto" th:src="@{/static/images/logo-auction.jpeg}" alt="Лого сайта" width="32" height="32">
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a th:href="@{/auction}" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Главное меню</a>
+                            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Мои публикации</a>
+                            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Отзывы</a>
+                            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Поддержка</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label>Категория:</label>
-            <span th:text="${publication.category}"></span>
+    </nav>
+
+    <header>
+        <div class="mx-auto text-center max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Вся доступная информация по лоту с ID: <span th:text="${publication.id}"></span></h1>
         </div>
-        <div>
-            <label>Состояние:</label>
-            <span th:text="${publication.condition}"></span>
-        </div>
-        <div>
-            <label>Текущая ставка сделана:</label>
-            <span th:text="${publication.user}"></span>
-        </div>
-        <div>
-            <label>Стартовая цена:</label>
-            <span th:text="${publication.startPrice}"></span>
-        </div>
-        <div>
-            <label>Дата окончания торгов:</label>
-            <span th:text="${#temporals.format(publication.dateOfFinishTrade, 'dd-MMMM-yyyy HH:mm')}"></span>
-        </div>
-        <div>
-            <label>Описание:</label>
-            <span th:text="${publication.descriptionPublication}"></span>
-        </div>
-        <div>
-            <label>Лот выставлен:</label>
-            <span th:text="${publication.holder}"></span>
-        </div>
-        <div>
-            <label>Текущая ставка:</label>
-            <span th:text="${publication.priceNow}"></span>
+    </header>
+
+<main>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+
+        <div class="grid grid-cols-3">
+
+            <div class="border px-1 py-1 text-center">
+                <img th:src="@{${publication.imagesPath}}" id="thumbnail" class="w-auto border p-1 rounded-md" alt="Фото лота">
+            </div>
+
+            <table class="table-auto w-full col-span-2">
+                <tr>
+                    <th class="bg-gray-800 text-white uppercase border text-left px-6">Категория</th>
+                    <td class="bg-white border-b px-6 py-4 border" th:text="${publication.category}"></td>
+                </tr>
+
+                <tr>
+                    <th class="bg-gray-800 text-white uppercase border text-left px-6">Состояние</th>
+                    <td class="bg-white border-b px-6 py-4 border" th:text="${publication.condition}"></td>
+                </tr>
+
+                <tr>
+                    <th class="bg-gray-800 text-white uppercase border text-left px-6">Торги завершатся</th>
+                    <td class="bg-white border-b px-6 py-4 border" th:text="${#temporals.format(publication.dateOfFinishTrade, 'dd-MMMM-yyyy HH:mm')}"></td>
+                </tr>
+
+                <tr>
+                    <th class="bg-gray-800 text-white uppercase border text-left px-6">Цена лота</th>
+                    <td class="bg-white border-b px-6 py-4 border" th:text="${publication.priceNow}"></td>
+                </tr>
+
+                <tr>
+                    <th class="bg-gray-800 text-white uppercase border text-left px-6">Лот выставлен</th>
+                    <td class="bg-white border-b px-6 py-4 border">
+                        <a th:href="@{/users/{login}(login=${publication.holder})}" class="border px-6 py-4 text-center" th:text="${publication.holder}"></a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th th:if="${publication.statusPublication == 'Продано' && publication.user == username}" class="bg-gray-800 text-white uppercase border text-left px-6">Номер владельца лота</th>
+                    <td th:if="${publication.statusPublication == 'Продано' && publication.user == username}" class="bg-white border-b px-6 py-4 border">
+                            <span> Свяжитесь с </span>
+                            <span th:text="${publication.holder}"></span>
+                            <span> по телефону </span>
+                            <span th:text="${userWin.phoneNumber}"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <form th:if="${publication.statusPublication == 'Активные торги' && publication.holder != username}" th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
+                        <th class="bg-gray-800 text-white uppercase border text-left px-6">Ваша ставка</th>
+                        <td class="bg-white border-b px-6 py-4 border">
+                            <input type="number" class="border rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" name="newPrice">
+                            <input type="submit" class="bg-green-600 font-medium hover:bg-green-700 px-3 py-2 rounded-md text-sm text-white" value="Сделать ставку">
+                        </td>
+                    </form>
+                </tr>
+
+                <tr>
+                    <th th:if="${publication.holder == username}" class="bg-gray-800 text-white uppercase border text-left px-6">Управление лотом</th>
+                    <td class="bg-white border-b px-6 py-4 border flex justify-between">
+                    <form th:if="${publication.holder == username}" th:method="post" th:action="@{/auction/delete}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="id" th:value="${publication.id}">
+                        <input type="submit" class="bg-red-600 font-medium px-3 py-2 rounded-md text-sm text-white" value="Удалить лот">
+                    </form>
+                    <form th:if="${publication.holder == username}" th:method="GET" th:action="@{/auction/edit/{id}(id=${publication.id})}">
+                        <input type="hidden" name="_method" value="GET">
+                        <input type="submit" class="bg-blue-600 font-medium px-3 py-2 rounded-md text-sm text-white" value="Изменить лот">
+                    </form>
+                    </td>
+                </tr>
+
+            </table>
         </div>
     </div>
-    <div>
-        <span th:if="${publication.statusPublication == 'Продано' && publication.user == username}">
-            <span> Свяжитесь с </span>
-            <span th:text="${publication.holder}"></span>
-            <span> по телефону </span>
-            <span th:text="${userWin.phoneNumber}"></span>
-        </span>
-    </div>
-    <div class="publication-actions">
-        <form th:if="${publication.statusPublication == 'Активные торги' && publication.holder != username}" th:method="POST" th:action="@{/auction/{id}(id=${publication.id})}">
-            <input type="number" name="newPrice" placeholder="Ваша ставка">
-            <input type="submit" value="Сделать ставку">
-            <input type="reset" value="Ввести данные заново">
-        </form>
-    </div>
-    <div>
-        <form th:if="${publication.holder == username}" th:method="post" th:action="@{/auction/delete}">
-            <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="id" th:value="${publication.id}">
-            <input type="submit" value="Удалить лот">
-        </form>
-        <p><form th:if="${publication.holder == username}" th:method="GET" th:action="@{/auction/edit/{id}(id=${publication.id})}">
-        <input type="hidden" name="_method" value="GET">
-        <input type="submit" value="Изменить лот">
-    </form>
-    </div>
-    </div>
+    </main>
+</div>
 </body>
 </html>
